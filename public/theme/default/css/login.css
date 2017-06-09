@@ -17,10 +17,6 @@ div.main{
     background-size: 100% 100%;
 }
 
-[class*="fontawesome-"]:before {
-    font-family: 'FontAwesome', sans-serif;
-}
-
 /* ---------- GENERAL ---------- */
 
 * {
@@ -116,11 +112,7 @@ span{
 }
 
 .foot{
-    background: orange;
     padding: 10px;
-    border-radius: 50px;
-    -moz-border-radius: 50px;
-    -webkit-border-radius: 50px;
     color: #fff;
     margin-top: 10px;
 }

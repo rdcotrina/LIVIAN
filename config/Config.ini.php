@@ -1,6 +1,7 @@
 <?php
 
 define('DEFAULT_LAYOUT','default');
+define('APP_COMPANY','LIVIAN');
 
 require_once ROOT . 'config' . DS . 'loads' . DS . 'LoadVendor.php';
 require_once ROOT . 'config' . DS . 'loads' . DS . 'LoadLibs.php';

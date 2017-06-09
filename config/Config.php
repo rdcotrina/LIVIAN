@@ -7,7 +7,6 @@ define('DEFAULT_METHOD', 'index');                                              
 
 define('APP_KEY', 'cnxtpFXNKHrdxCClokAZEW');                                       #llave para AES
 define('APP_PASS_KEY', 'x#$$%%RDCNZbnbXOkojf&dzvxd5q#arrDbPK1spU75Jm|N79Ii12||}'); #llave para concatenar al md5 pass: renewerp
-define('APP_COPY', '© Todos los derechos reservados Perú - 2017');
 
 
 /*==================BASE DE DATOS==============================*/
