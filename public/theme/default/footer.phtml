@@ -1,0 +1,23 @@
+    </body>
+    
+    <?php if (!Obj()->Vendor->Session->get('sys_isLogin')) : ?>
+        <!--<script type="text/javascript" src="<?php echo BASE_URL; ?>app/system/views/init/js/Init.js"></script>-->
+    <?php endif; ?>
+
+    <script>
+        /*obtener el src de los js incluidos, para verificar que no sean suplantados*/
+        /*
+         $.each($('script'),function(){
+            alert($(this).attr('src'))
+         });
+         */
+        Exe.require("<?php echo BASE_URL; ?>vendor/client/Tools");
+        Exe.require("<?php echo BASE_URL; ?>libs/Aes/js/aes",function(){
+            Exe.require("<?php echo BASE_URL; ?>libs/Aes/js/aesctr");
+        });    
+        Exe.require("<?php echo BASE_URL; ?>libs/Aes/js/base64");
+        Exe.require("<?php echo BASE_URL; ?>libs/Aes/js/utf8");
+
+    </script>
+
+</html>
