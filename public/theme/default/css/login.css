@@ -43,12 +43,13 @@ body {
 }
 
 a {
-    color: #333;
+    color: white;
     text-decoration: none;
 }
 
 a:hover {
     text-decoration: underline;
+    color: orange;
 }
 
 input {
@@ -62,6 +63,9 @@ input {
 
 p {
     line-height: 1.5em;
+}
+span{
+    color: orange !important;
 }
 
 .clearfix {
@@ -108,8 +112,18 @@ p {
     -webkit-border-radius: 50px;
     border: 6px solid rgba(221, 218, 215, 0.23);
     margin-bottom: 10px;
+    background: url(../../../../public/img/logo_login.fw.png)
 }
 
+.foot{
+    background: orange;
+    padding: 10px;
+    border-radius: 50px;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    color: #fff;
+    margin-top: 10px;
+}
 #login form span.fa {
     background-color: #fff;
     border-radius: 3px 0px 0px 3px;
@@ -142,17 +156,13 @@ fieldset{
 }
 
 #login form button {
-    border: 0px;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    background-color: orange;
-    color: #eee;
-    font-weight: bold;
+    
+    background: orange !important;
+    color: #fff;
+   
     /* margin-bottom: 2em; */
     padding: 5px 10px;
     height: 30px;
-    cursor: pointer;
 }
 
 #login form input[type="submit"]:hover {
