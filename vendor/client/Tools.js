@@ -1,13 +1,13 @@
-class Tools_{
-    
+class Tools_ {
+
     /*
      * mensajes
      */
-    notify () {
+    notify() {
         let m = {
             ok: function (obj) {
                 $.smallBox({
-                    title: (obj.title !== undefined) ? obj.title : "Aviso del Sistema:",
+                    title: (obj.title !== undefined) ? obj.title : LANG.msn_sys,
                     content: (obj.content !== undefined) ? obj.content : "No content",
                     color: (obj.color !== undefined) ? obj.color : "#739E73",
                     iconSmall: (obj.icon !== undefined) ? obj.icon : "fa fa-check shake animated",
@@ -19,7 +19,7 @@ class Tools_{
             },
             error: function (obj) {
                 $.smallBox({
-                    title: (obj.title !== undefined) ? obj.title : "Aviso del Sistema:",
+                    title: (obj.title !== undefined) ? obj.title : LANG.msn_sys,
                     content: (obj.content !== undefined) ? obj.content : "No content",
                     color: (obj.color !== undefined) ? obj.color : "#C46A69",
                     iconSmall: (obj.icon !== undefined) ? obj.icon : "fa fa-warning shake animated",
@@ -31,7 +31,7 @@ class Tools_{
             },
             info: function (obj) {
                 $.bigBox({
-                    title: (obj.title !== undefined) ? obj.title : "Aviso del Sistema:",
+                    title: (obj.title !== undefined) ? obj.title : LANG.msn_sys,
                     content: (obj.content !== undefined) ? obj.content : "No content",
                     color: (obj.color !== undefined) ? obj.color : "#3276B1",
                     timeout: (obj.timeout !== undefined) ? obj.timeout : 6000,
@@ -44,7 +44,7 @@ class Tools_{
             },
             warning: function (obj) {
                 $.bigBox({
-                    title: (obj.title !== undefined) ? obj.title : "Aviso del Sistema:",
+                    title: (obj.title !== undefined) ? obj.title : LANG.msn_sys,
                     content: (obj.content !== undefined) ? obj.content : "No content",
                     color: (obj.color !== undefined) ? obj.color : "#C79121",
                     timeout: (obj.timeout !== undefined) ? obj.timeout : 6000,
@@ -57,7 +57,7 @@ class Tools_{
             },
             msn: function (obj) {
                 $.smallBox({
-                    title: (obj.title !== undefined) ? obj.title : "",
+                    title: (obj.title !== undefined) ? obj.title : LANG.msn_sys,
                     content: (obj.content !== undefined) ? obj.content : "No content",
                     color: (obj.color !== undefined) ? obj.color : "#296191",
                     timeout: (obj.timeout !== undefined) ? obj.timeout : 6000,
@@ -69,7 +69,7 @@ class Tools_{
             },
             smallMsn: function (obj) {
                 $.smallBox({
-                    title: (obj.title !== undefined) ? obj.title : "",
+                    title: (obj.title !== undefined) ? obj.title : LANG.msn_sys,
                     content: (obj.content !== undefined) ? obj.content : "No content",
                     color: (obj.color !== undefined) ? obj.color : "#296191",
                     iconSmall: (obj.icon !== undefined) ? obj.icon : "fa fa-thumbs-up bounce animated",
@@ -99,7 +99,7 @@ class Tools_{
             },
             alert: function (obj) {
                 $.SmartMessageBox({
-                    title: "Aviso:",
+                    title: LANG.msn_sys,
                     content: (obj.content !== undefined) ? obj.content : "No content",
                     buttons: '[Aceptar]'
                 }, function (ButtonPressed) {
@@ -110,10 +110,10 @@ class Tools_{
                     }
                 });
             }
-        }
+        };
         return m;
     }
-    
+
     /*
      * Quita el validate de jquery de un fronulario
      * @param {type} f
@@ -123,9 +123,9 @@ class Tools_{
         $(f).removeData("validator");
         $(f).find('.chosen-container').css('border', '0px');
     }
-    
+
     /*para agregar eventos a elementos*/
-    addEvent(){
+    addEvent() {
         let ev = {
             click: function (obj) {
                 $(obj.element).off('click');
@@ -192,7 +192,7 @@ class Tools_{
             }
         }
     }
-    
+
     /*
      * 
      * @param {type} obj
@@ -246,23 +246,23 @@ class Tools_{
         let id = '';
         let value = '';
         let dataAttr = '';
-        
+
         for (var i in data) {
             id = '';
             dataAttr = '';
-            
+
             /*creando data-*/
-            if(dataView.attr !== undefined){
+            if (dataView.attr !== undefined) {
                 if ($.isArray(dataView.attr)) {
                     for (var k in dataView.attr) {
-                        dataAttr += 'data-'+dataView.attr[k]+'="'+eval('data[i].' + dataView.attr[k])+'" ';
+                        dataAttr += 'data-' + dataView.attr[k] + '="' + eval('data[i].' + dataView.attr[k]) + '" ';
                     }
-                }else{
+                } else {
                     dataAttr = 'data[i].' + dataView.attr;
-                    dataAttr = 'data-'+dataView.attr+'="'+eval(dataAttr)+'" ';
+                    dataAttr = 'data-' + dataView.attr + '="' + eval(dataAttr) + '" ';
                 }
             }
-            
+
             if ($.isArray(dataView.value)) {
                 for (var j in dataView.value) {
                     id += eval('data[i].' + dataView.value[j]) + '-';
@@ -291,7 +291,7 @@ class Tools_{
             if (deffault === id) {
                 sel = ' selected = "selected" ';
             }
-            cb += '<option value="' + id + '" ' + sel + ' '+dataAttr+'>' + value + '</option>';
+            cb += '<option value="' + id + '" ' + sel + ' ' + dataAttr + '>' + value + '</option>';
         }
         cb += '</select>';
 
@@ -318,7 +318,7 @@ class Tools_{
             $('#' + iidd + '_chosen').css({width: '100%'});
         }
     }
-    
+
     /*anular submit en en evento enter de elementos de un formulario*/
     noSubmit(form) {
         $(form).find('input:text').keypress(function (e) {
@@ -326,19 +326,41 @@ class Tools_{
                 return false;
         });
     }
-    
-    en (c) {
+
+    en(c) {
         return Aes.Ctr.post(c, 256);
     }
 
-    de (c) {
+    de(c) {
         return Aes.Ctr.get(c, 256);
     }
-    
-    bajoString(){
-        return String.fromCharCode(99, 110, 120, 116, 112, 70, 88, 78, 75, 72, 114, 100, 120, 67, 67, 108,111,107,65,90,69,87);
+
+    bajoString() {
+        return String.fromCharCode(99, 110, 120, 116, 112, 70, 88, 78, 75, 72, 114, 100, 120, 67, 67, 108, 111, 107, 65, 90, 69, 87);
     }
-    
+
+    traslation(root) {
+        var ln = window.navigator.language || navigator.browserLanguage;
+        var lang = ln.split('-')[0].toUpperCase();
+
+        Exe.require(`${root}config/18n/language_${lang}`, function () {
+
+            var elems = document.querySelectorAll(".tr-language"), ev = '';
+            for (var x = 0; x < elems.length; x++) {
+                ev = `language_${lang}.labels[ '${elems[x].dataset.tr}' ]`;
+                elems[x].innerHTML = eval(ev);
+            }
+            //los placeholders
+            var elems = document.querySelectorAll(".tr-language-ph"), ev = '';
+            for (var x = 0; x < elems.length; x++) {
+                ev = `language_${lang}.labels[ '${elems[x].dataset.tr}' ]`;
+                elems[x].placeholder = eval(ev);
+            }
+            
+            LANG = eval(`language_${lang}.etiquet`);
+        });
+    }
+
 }
 
 const Tools = new Tools_();

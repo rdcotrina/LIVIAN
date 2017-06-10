@@ -21,7 +21,7 @@ class Exe_ {
             script.id    = 'script_' + scriptId;
             script.async = 'async';
             script.src   = requires + '.js?' + myRand;
-           
+        
             let onCallback = function () {
                 if ($.isFunction(callback)) {
                     callback();
@@ -30,9 +30,9 @@ class Exe_ {
                 let pos  = requires.lastIndexOf('/') + 1;
                 let file = requires.substr(pos);
                 
-                /*despues que carga el modelo se debe ejecutar el Controller*/
-                if (file.search('Model') > 0) {
-                    let f = file.substr(0, file.length - 5)+'Controller';                               
+                /*despues que carga el ajax se debe ejecutar el DOM*/
+                if (file.search('Ajax') > 0) {
+                    let f = file.substr(0, file.length - 4)+'Dom';                               
                     obj._builtPrototype(f);
                 }
             };
@@ -50,29 +50,28 @@ class Exe_ {
         this._builtPrototype = function (obj) {
             setTimeout(function(){
                 /*agrego obj como prototipo a Exe*/
-                let sc  = 'Exe_.prototype.' + obj + ' = new ' + obj + '_();';
+                let sc  = `Exe_.prototype.${obj} = new ${obj}_(); Exe.${obj}.main();`;
 
                 eval(sc);
-            },100);
+            },200); /*se le da un tiempo de 200 milisegundos porque en mozilla generaba error con el Dom_.js*/
         };
     
         /*
          * Crea la ruta del js a incluir
          */
         this._root = function(namespace,cadena){
-           // let lnfile = (cadena.search('Controller') > 0)?4:5; /*Controller == 10   Model == 5*/
             let module = namespace;
             let opcion = cadena;
             
-            let Controller   = opcion+'Controller';
-            let model  = opcion+'Model';
+            let dom   = opcion+'Dom';
+            let ajax  = opcion+'Ajax';
           
             let folder = opcion.toLowerCase();         /*carpeta dentro de /views/ */
             
-            let rootV   = 'app/'+module+'/views/'+folder+'/js/'+Controller;    /*ruta del Controller.js a incluir*/
-            let rootM   = 'app/'+module+'/views/'+folder+'/js/'+model;    /*ruta del Model.js a incluir*/
+            let rootD   = 'app/'+module+'/views/'+folder+'/js/'+dom;    /*ruta del Dom.js a incluir*/
+            let rootA   = 'app/'+module+'/views/'+folder+'/js/'+ajax;    /*ruta del Ajax.js a incluir*/
             
-            return {rootView:rootV,rootModel:rootM};
+            return {rootDom:rootD,rootAjax:rootA};
         };
         
         /*
@@ -80,10 +79,10 @@ class Exe_ {
          */
         this._requireString = function(requires){
             /*se verifica si ya se incluyo*/
-            if(!this._includesArray[requires]){
+            //if(!this._includesArray[requires]){ /*EN DESARROLLO DEBE PERMITIR VOLER A CARGAR LOS JS---EN PRODUCCION SE DEBE ESCOMENTAR EL if{}*/
                 this._includesArray[requires] = true; /*se registra como incluido*/
                 this._createScript(requires);   /*se crea el include*/
-            }
+            //}
         };
         
         this._requireArray = function(requires){
@@ -95,9 +94,9 @@ class Exe_ {
                 requires.forEach((i,v)=>{
                     $.each(i,function(a,b){
                         root = obj._root(a,b);
-                        obj._requireString(root.rootModel);
+                        obj._requireString(root.rootAjax);
                         setTimeout(function(){
-                            obj._requireString(root.rootView);
+                            obj._requireString(root.rootDom);
                         },50);
                     });
                 });
@@ -105,9 +104,9 @@ class Exe_ {
                 /*array: {sistema: 'main::LoginView'}*/
                 $.each(requires,function(a,b){
                     root = obj._root(a,b);
-                    obj._requireString(root.rootModel);
+                    obj._requireString(root.rootAjax);
                     setTimeout(function(){
-                        obj._requireString(root.rootView);
+                        obj._requireString(root.rootDom);
                     },50);
                 });
             }

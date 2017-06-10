@@ -1,23 +1,33 @@
-    </body>
     
-    <?php if (!Obj()->Vendor->Session->get('sys_isLogin')) : ?>
-        <!--<script type="text/javascript" src="<?php echo BASE_URL; ?>app/system/views/init/js/Init.js"></script>-->
-    <?php endif; ?>
 
-    <script>
+    <script type="text/javascript">
         /*obtener el src de los js incluidos, para verificar que no sean suplantados*/
         /*
          $.each($('script'),function(){
             alert($(this).attr('src'))
          });
          */
-        Exe.require("<?php echo BASE_URL; ?>vendor/client/Tools");
+        var LANG = null; /*objeto para los alertas y labels de botones y demas*/
+        
+        Exe.require("<?php echo $rutaLayout['js']; ?>bootstrap");
+        Exe.require("<?php echo $rutaLayout['js']; ?>plugins/validate/jquery.validate.min");
+        Exe.require("<?php echo BASE_URL; ?>public/js/notification/SmartNotification.min");
+        
+        Exe.require("<?php echo BASE_URL; ?>vendor/client/Tools",function(){
+            Tools.traslation('<?php echo BASE_URL; ?>');
+        });
         Exe.require("<?php echo BASE_URL; ?>libs/Aes/js/aes",function(){
             Exe.require("<?php echo BASE_URL; ?>libs/Aes/js/aesctr");
         });    
         Exe.require("<?php echo BASE_URL; ?>libs/Aes/js/base64");
         Exe.require("<?php echo BASE_URL; ?>libs/Aes/js/utf8");
-
     </script>
 
+    <?php if (!Obj()->Vendor->Session->get('sys_isLogin')) : ?>
+        <script type="text/javascript">
+            Exe.require([{system: 'Init'}]);
+        </script>
+    <?php endif; ?>
+        
+    </body>
 </html>

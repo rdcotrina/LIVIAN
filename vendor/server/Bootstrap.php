@@ -49,7 +49,7 @@ final class Bootstrap {
 
             /* se verifica si el metodo existe en el controller */
             if (!is_callable([Obj()->$MMDD->$controllerFile, $method])) {
-                throw new Exception('Error de M&eacute;todo: <b>' . $method . '</b> no encontrado.');
+                throw new Exception('Error de Controlador Metodo: <b>' . $method . '</b> no encontrado.');
             }
 
             /* si se envia parametros se ejecuta el metodo y se los envia */
