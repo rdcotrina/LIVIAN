@@ -6,7 +6,7 @@ define('DEFAULT_CONTROLLER', 'init');                                           
 define('DEFAULT_METHOD', 'index');                                              #metodo por defecto
 
 define('APP_KEY', 'cnxtpFXNKHrdxCClokAZEW');                                       #llave para AES
-define('APP_PASS_KEY', 'x#$$%%RDCNZbnbXOkojf&dzvxd5q#arrDbPK1spU75Jm|N79Ii12||}'); #llave para concatenar al md5 pass: renewerp
+define('APP_PASS_KEY', 'x#$$%%RDCNZbnbXOkojf&dzvxd5q#arrDbPK1spU75Jm|N79Ii12||}'); #llave para concatenar al md5 pass: 20livian17
 
 
 /*==================BASE DE DATOS==============================*/
