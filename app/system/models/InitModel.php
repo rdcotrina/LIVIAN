@@ -11,15 +11,27 @@ class InitModel extends \Vendor\DataBase{
         $this->_form = Obj()->Vendor->Request->allForm()->post(['txtUser','txtClave'])->decrypt;
     }
     
-    protected function login() {      
+    protected function login($flag = '',$user = '', $pass = '') {      
+        
+        if(empty($flag)){
+            $flag = $this->_form->_flag;
+            $user = $this->_form->txtUser;
+            $pass = $this->_form->txtClave.APP_PASS_KEY;
+        }
+        
         $query = "CALL sp_sisLogin (:flag,:usuario,:clave) ; ";
         $parms = [
-            ':flag' => $this->_form->_flag,
-            ':usuario' => $this->_form->txtUser,
-            ':clave' => $this->_form->txtClave.APP_PASS_KEY		
+            ':flag' => $flag,
+            ':usuario' => $user,
+            ':clave' => $pass		
         ];
-
-        return $this->getRow($query, $parms);
+        
+        if($flag == 1){
+            return $this->getRow($query, $parms);   /*devuelve un registro*/
+        } else {
+            return $this->getRows($query, $parms);  /*devuelve varios registros*/
+        }
+        
     }
     
 }

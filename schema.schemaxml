@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="utf8" collation="utf8_spanish_ci">livian</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="app_boton" view="colnames">
+<left>284</left>
+<top>461</top>
+<width>95</width>
+<height>163</height>
+<sql_create_table>CREATE TABLE `app_boton` (
+  `id_boton` int(11) NOT NULL AUTO_INCREMENT,
+  `nboton` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `alias` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `icono` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `css` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id_boton`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci</sql_create_table>
+</table>
+<table name="app_menu" view="colnames">
+<left>768</left>
+<top>136</top>
+<width>95</width>
+<height>129</height>
+<sql_create_table>CREATE TABLE `app_menu` (
+  `id_menu` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identificador',
+  `parent` int(11) DEFAULT '0' COMMENT 'indica a que menu (id_menu) pertenece la opcion',
+  `nmenu` varchar(500) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'descripcion del menu',
+  PRIMARY KEY (`id_menu`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci</sql_create_table>
+</table>
+<table name="app_persona" view="colnames">
+<left>30</left>
+<top>258</top>
+<width>145</width>
+<height>163</height>
+<sql_create_table>CREATE TABLE `app_persona` (
+  `id_persona` bigint(20) NOT NULL AUTO_INCREMENT,
+  `apellido_paterno` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `apellido_materno` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `primer_nombre` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `segundo_nombre` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id_persona`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci</sql_create_table>
+</table>
+<table name="app_rol" view="colnames">
+<left>534</left>
+<top>146</top>
+<width>78</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `app_rol` (
+  `id_rol` int(11) NOT NULL AUTO_INCREMENT,
+  `nrol` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id_rol`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci</sql_create_table>
+</table>
+<table name="app_rol_usuario" view="colnames">
+<left>367</left>
+<top>132</top>
+<width>120</width>
+<height>129</height>
+<sql_create_table>CREATE TABLE `app_rol_usuario` (
+  `id_rolusuario` int(11) NOT NULL AUTO_INCREMENT,
+  `id_rol` int(11) DEFAULT NULL,
+  `id_usuario` bigint(11) DEFAULT NULL,
+  PRIMARY KEY (`id_rolusuario`),
+  KEY `id_usuario` (`id_usuario`),
+  KEY `id_rol` (`id_rol`),
+  CONSTRAINT `app_rol_usuario_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `app_usuario` (`id_usuario`),
+  CONSTRAINT `app_rol_usuario_ibfk_2` FOREIGN KEY (`id_rol`) REFERENCES `app_rol` (`id_rol`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci</sql_create_table>
+</table>
+<table name="app_usuario" view="colnames">
+<left>202</left>
+<top>252</top>
+<width>127</width>
+<height>163</height>
+<sql_create_table>CREATE TABLE `app_usuario` (
+  `id_usuario` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_persona` bigint(20) DEFAULT NULL,
+  `usuario` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `clave` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `ultimo_acceso` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_usuario`),
+  KEY `id_persona` (`id_persona`),
+  CONSTRAINT `app_usuario_ibfk_1` FOREIGN KEY (`id_persona`) REFERENCES `app_persona` (`id_persona`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci</sql_create_table>
+</table>
+<table name="app_rol_menu" view="colnames">
+<left>646</left>
+<top>312</top>
+<width>117</width>
+<height>129</height>
+<sql_create_table>CREATE TABLE `app_rol_menu` (
+  `id_rolmenu` int(11) NOT NULL AUTO_INCREMENT,
+  `id_rol` int(11) DEFAULT NULL,
+  `id_menu` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_rolmenu`),
+  KEY `id_rol` (`id_rol`),
+  KEY `id_menu` (`id_menu`),
+  CONSTRAINT `app_rol_menu_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `app_rol` (`id_rol`),
+  CONSTRAINT `app_rol_menu_ibfk_2` FOREIGN KEY (`id_menu`) REFERENCES `app_menu` (`id_menu`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci</sql_create_table>
+</table>
+<table name="app_boton_rol_menu" view="colnames">
+<left>439</left>
+<top>422</top>
+<width>142</width>
+<height>129</height>
+<sql_create_table>CREATE TABLE `app_boton_rol_menu` (
+  `id_botonrolmenu` int(11) NOT NULL AUTO_INCREMENT,
+  `id_rolmenu` int(11) DEFAULT NULL,
+  `id_boton` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_botonrolmenu`),
+  KEY `id_boton` (`id_boton`),
+  KEY `id_rolmenu` (`id_rolmenu`),
+  CONSTRAINT `app_boton_rol_menu_ibfk_1` FOREIGN KEY (`id_boton`) REFERENCES `app_boton` (`id_boton`),
+  CONSTRAINT `app_boton_rol_menu_ibfk_2` FOREIGN KEY (`id_rolmenu`) REFERENCES `app_rol_menu` (`id_rolmenu`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>

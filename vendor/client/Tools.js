@@ -81,7 +81,7 @@ class Tools_ {
             },
             confirm: function (obj) {
                 $.SmartMessageBox({
-                    title: "Confirmar:",
+                    title: `<b>${LANG.msn_sys}</b>`,
                     content: (obj.content !== undefined) ? obj.content : "No content",
                     buttons: '[No][Si]'
                 }, function (ButtonPressed) {
@@ -357,7 +357,8 @@ class Tools_ {
                 elems[x].placeholder = eval(ev);
             }
             
-            LANG = eval(`language_${lang}.etiquet`);
+            LANG = eval(`language_${lang}.etiquet`); /*para los alertas*/
+            localStorage.setItem('sys_lang',lang);
         });
     }
 

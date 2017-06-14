@@ -5,7 +5,9 @@ class InitDom_ extends InitAjax_ {
         super();
     }
 
-    main() {
+    main() {}
+    
+    postLogin() {
         let t = this; 
         var p = super.postLogin;
         
@@ -31,7 +33,17 @@ class InitDom_ extends InitAjax_ {
         });
     }
 
-    
+    logOut(){
+        let t = this; 
+        var p = super.logOut;
+        
+        Tools.notify().confirm({
+            content: `<span class="MsgTitle"><i class="fa fa-sign-out" style="color:orange"></i> ${LANG.msn_logout} <span style="color:orange"><strong>ADMINISTRADOR CORE SOLUTION</strong></span> ?</span><p>${LANG.msn_seguridad_logout}</p>`,
+            callbackSI: function(){
+                p.call(t);
+            }
+        });
+    }
 
 }
 

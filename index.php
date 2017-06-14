@@ -12,6 +12,7 @@ try {
     \Vendor\Registry::addClass('Bootstrap','\\Vendor\\Bootstrap');
     \Vendor\Registry::addClass('Request','\\Vendor\\Request');
     \Vendor\Registry::addClass('View','\\Vendor\\View');
+    \Vendor\Registry::addClass('Tools','\\Vendor\\Tools');
     
     Obj()->Vendor->Session->run();
     Obj()->Vendor->Bootstrap->run();

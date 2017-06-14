@@ -24,15 +24,30 @@ class InitAjax_ extends Ajax_ {
                     Tools.notify().ok({
                         content: LANG.loginok
                     });
+                    location.reload(true);
                 } else if (data.result == 2) {
                     $("#main").effect('shake');
                     Tools.notify().error({
                         content: LANG.loginfail
                     });
-                    
                 }
             }
         });
     }
+    
+    logOut(){
+        super.send({
+            flag: 1,
+            element: '#btn_entrar',
+            encrypt: true,
+            root: this._controller + 'logOut',
+            clear: false,
+            fnCallback: function () {
+                location.reload(true);
+                localStorage.clear();
+            }
+        });
+    }
+    
 }
 

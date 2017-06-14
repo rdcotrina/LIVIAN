@@ -25,8 +25,23 @@
 
     <?php if (!Obj()->Vendor->Session->get('sys_isLogin')) : ?>
         <script type="text/javascript">
-            Exe.require([{system: 'Init'}]);
+            Exe.require([{system: 'Init'}],function(){
+                setTimeout(function(){ Exe.InitDom.postLogin(); },500);
+            });
         </script>
+    <?php else:?>
+        <script type="text/javascript">
+            Exe.require([{system: 'Init'}]);
+            Exe.require("<?php echo BASE_URL; ?>public/js/SmartMenus/jquery.smartmenus",function(){
+                $('#main-menu').smartmenus({
+                    mainMenuSubOffsetX: 1,
+                    mainMenuSubOffsetY: -8,
+                    subMenusSubOffsetX: 1,
+                    subMenusSubOffsetY: -8
+                });
+            });
+        </script>
+        
     <?php endif; ?>
         
     </body>
