@@ -28,15 +28,19 @@
                  * @returns {undefined}
                  */
                 subItem: function(id_menu,oSettings,root){
-                    let li = null, cont = [], selfmenu = [], name = null, rot = root;
+                    let li = null, cont = [], selfmenu = [], name = null, rot = root, icon = null, sp = null;
                     $.each(oSettings.data, function (i, v) {
                         if(v.parent == id_menu){
                             if(JSON.stringify(cont).indexOf(v.id_menu) == -1){
                                 name = Tools.traslate(v.nmenu);
                                 rot = `${root},${name}`;
+                                
+                                icon = (v.evt_ajax != 'not')?'fa fa-bars':'fa fa-folder-open';
+                                sp = (v.evt_ajax != 'not')?'&nbsp;':'';
+                                
                                 li = `
                                 <li id="li_${v.id_menu}">
-                                    <a href="javascript:;" data-root="${rot}">${name}</a>`;
+                                    <a href="javascript:;" data-root="${rot}"><i class="${icon}"></i><div class="line-vertical"></div>&nbsp;${sp} <span class="text-menu-sm">${name}</span></a>`;
                                     if(v.evt_ajax == 'not'){
                                         li += `<ul id="mnu_${v.id_menu}"></ul>`;
                                     }
@@ -73,7 +77,7 @@
                                 name = Tools.traslate(v.nmenu);
                                 li = `
                                 <li>
-                                    <a href="javascript:;" data-root="${name}">${name}</a>
+                                    <a href="javascript:;" data-root="${name}"><i class="fa fa-folder-open"></i><div class="line-vertical"></div>&nbsp; <span class="text-menu-sm">${name}</span></a>
                                     <ul id="mnu_${v.id_menu}"></ul>
                                 </li>`;
                                 cont.push(v.id_menu);
@@ -88,7 +92,7 @@
                             if(JSON.stringify(cont).indexOf(v.id_menu) == -1){
                                 name = Tools.traslate(v.nmenu);
                                 li = `<li id="li_${v.id_menu}">
-                                        <a href="javascript:;" data-root="${name}">${name}</a>
+                                        <a href="javascript:;" data-root="${name}"><i class="fa fa-bars"></i><div class="line-vertical"></div>&nbsp;&nbsp; <span class="text-menu-sm">${name}</span></a>
                                     </li>`;
                                 cont.push(v.id_menu);
                                 

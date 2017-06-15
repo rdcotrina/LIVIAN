@@ -119,7 +119,7 @@ class Exe_ {
         if ($.isFunction(callback)) {
             this._callback = callback;
         } else {
-            this._title = $.trim($(callback).html());
+            this._title = $.trim($(callback).find('.text-menu').html());
             this._rooot = $.trim($(callback).data('root'));
         }
 

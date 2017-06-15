@@ -11,7 +11,9 @@ class MenuDom_ extends InitAjax_ {
         Tools.addTab({
             id: tabs.MNU,
             label: Exe.getTitle(),
-            fnCallback: function() {alert(Exe.getRoot())
+            fnCallback: function() {
+                
+//                lert(Exe.getRoot())
 //                Exe.MenuView.index(Exe.getTitle());
             }
         });
