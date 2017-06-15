@@ -1,16 +1,20 @@
 "use strict";
+Exe.require('app/system/views/init/js/InitMenu');
+Exe.require('app/system/views/init/js/Button.sys');
+
 class InitDom_ extends InitAjax_ {
 
     constructor() {
         super();
+        this._logOut = super.logOut;
     }
 
     main() {}
-    
+
     postLogin() {
-        let t = this; 
+        let t = this;
         var p = super.postLogin;
-        
+
         $("#formLogin").validate({
             // Rules for form validation
             rules: {
@@ -33,14 +37,12 @@ class InitDom_ extends InitAjax_ {
         });
     }
 
-    logOut(){
-        let t = this; 
-        var p = super.logOut;
-        
+    logOut() {
         Tools.notify().confirm({
+            context: this,
             content: `<span class="MsgTitle"><i class="fa fa-sign-out" style="color:orange"></i> ${LANG.msn_logout} <span style="color:orange"><strong>ADMINISTRADOR CORE SOLUTION</strong></span> ?</span><p>${LANG.msn_seguridad_logout}</p>`,
-            callbackSI: function(){
-                p.call(t);
+            callbackSI: function (context) {
+                context._logOut();
             }
         });
     }

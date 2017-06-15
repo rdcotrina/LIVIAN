@@ -362,12 +362,12 @@
         overflow: hidden;
         border-width: 8px;
         border-style: dashed dashed solid dashed;
-        border-color: transparent transparent #2b82ac transparent;
+        border-color: transparent transparent orange transparent;
     }
     .sm-blue span.scroll-down-arrow {
         top: 6px;
         border-style: solid dashed dashed dashed;
-        border-color: #2b82ac transparent transparent transparent;
+        border-color: orange transparent transparent transparent;
     }
     .sm-blue.sm-rtl.sm-vertical a span.sub-arrow {
         right: auto;

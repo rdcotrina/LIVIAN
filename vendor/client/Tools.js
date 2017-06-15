@@ -85,14 +85,17 @@ class Tools_ {
                     content: (obj.content !== undefined) ? obj.content : "No content",
                     buttons: '[No][Si]'
                 }, function (ButtonPressed) {
+                    if(obj.context == undefined){
+                        console.log('[context] no definido, puede causar errores para ejecucion de callback');
+                    }
                     if (ButtonPressed === "Si") {
                         if (obj.callbackSI !== undefined) {
-                            obj.callbackSI();
+                            obj.callbackSI(obj.context); /*context es para enviar el scope de la clase en donde se ejecuta Tools*/
                         }
                     }
                     if (ButtonPressed === "No") {
                         if (obj.callbackNO !== undefined) {
-                            obj.callbackNO();
+                            obj.callbackNO(obj.context);
                         }
                     }
                 });

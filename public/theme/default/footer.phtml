@@ -8,6 +8,7 @@
          });
          */
         var LANG = null; /*objeto para los alertas y labels de botones y demas*/
+        var BASE_URL = '<?php echo BASE_URL?>';
         
         Exe.require("<?php echo $rutaLayout['js']; ?>bootstrap");
         Exe.require("<?php echo $rutaLayout['js']; ?>plugins/validate/jquery.validate.min");
@@ -31,15 +32,22 @@
         </script>
     <?php else:?>
         <script type="text/javascript">
-            Exe.require([{system: 'Init'}]);
-            Exe.require("<?php echo BASE_URL; ?>public/js/SmartMenus/jquery.smartmenus",function(){
-                $('#main-menu').smartmenus({
-                    mainMenuSubOffsetX: 1,
-                    mainMenuSubOffsetY: -8,
-                    subMenusSubOffsetX: 1,
-                    subMenusSubOffsetY: -8
-                });
+            Exe.require("<?php echo BASE_URL; ?>public/js/SmartMenus/jquery.smartmenus");
+            Exe.require([{system: 'Init'}],function(){
+                setTimeout(function(){
+                    $('#void_menu').initMenu({
+                        data: <?php echo json_encode(Obj()->Vendor->Session->get('sys_menuUser')) ?>
+                    }); 
+                    $('#main-menu').smartmenus({
+                        mainMenuSubOffsetX: 1,
+                        mainMenuSubOffsetY: -8,
+                        subMenusSubOffsetX: 1,
+                        subMenusSubOffsetY: -8
+                    });
+                },900);
             });
+                        
+            
         </script>
         
     <?php endif; ?>

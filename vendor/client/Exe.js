@@ -21,7 +21,7 @@ class Exe_ {
             script.id    = 'script_' + scriptId;
             script.async = 'async';
             script.src   = requires + '.js?' + myRand;
-        
+ 
             let onCallback = function () {
                 if ($.isFunction(callback)) {
                     callback();
@@ -53,7 +53,7 @@ class Exe_ {
                 let sc  = `Exe_.prototype.${obj} = new ${obj}_(); Exe.${obj}.main();`;
 
                 eval(sc);
-            },200); /*se le da un tiempo de 200 milisegundos porque en mozilla generaba error con el Dom_.js*/
+            },400); /*se le da un tiempo de 400 milisegundos porque en mozilla generaba error con el Dom_.js*/
         };
     
         /*
