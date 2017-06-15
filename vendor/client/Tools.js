@@ -1,4 +1,48 @@
+"use strict";
+var counterTabsSys = 0;
 class Tools_ {
+
+    constructor() {
+        this._tabs = $("#cont-general-tabs-sys").tabs();
+        this._tabTemplate = `<li style='position:relative;border-radius: 3px 3px 0 0;-moz-border-radius: 3px 3px 0 0;-webkit-border-radius: 3px 3px 0 0;' id='#{idli}'> 
+                                <span class='delete-tab' style='top:2px; left:2px;position:absolute;'>
+                                    <button class='btn btn-xs font-xs btn-default hover-transparent'><i class='fa fa-times'></i></button>
+                                </span>
+                                <a href='#{href}'>&nbsp;&nbsp;&nbsp; #{label}</a>
+                            </li>`;
+    }
+
+    addTab(obj) {
+        /*verificar si tab existe*/
+        if ($('#cont-general-tabs-sys').find('#' + obj.id + '_CONTAINER').length > 0) {
+            $('#li-' + obj.id).remove();
+            $('#cont-general-tabs-sys').find('#' + obj.id + '_CONTAINER').remove();
+        }
+
+        let li = $(this._tabTemplate.replace(/#\{href\}/g, "#" + obj.id + '_CONTAINER').replace(/#\{label\}/g, obj.label).replace(/#\{idli\}/g, 'li-' + obj.id));
+        let tabContentHtml = (obj.content !== undefined) ? obj.content : '<h1><i class="fa fa-cog fa-spin"></i> Cargando...</h1>';
+        
+        this._tabs.find("#cont-tabs-sys").append(li);
+        this._tabs.find('#cont-main-sys').append("<div id='" + obj.id + "_CONTAINER' class='tab-pane'><p>" + tabContentHtml + "</p></div>");
+        this._tabs.tabs("refresh");
+        
+        if (obj.fnCallback !== undefined) {
+            obj.fnCallback();
+        }
+
+        $('#li-' + obj.id).find('a').click();
+        
+    }
+    
+    closeTabs() {
+        let t = this;
+        $("#cont-general-tabs-sys").on("click", 'span.delete-tab', function () {
+            /*detecto id de tab dentro del contenedro del aplicativo*/
+            let panelId = $(this).closest("li").remove().attr("aria-controls");
+            $("#" + panelId).remove();
+            t._tabs.tabs("refresh");
+        });
+    }
 
     /*
      * mensajes
@@ -85,7 +129,7 @@ class Tools_ {
                     content: (obj.content !== undefined) ? obj.content : "No content",
                     buttons: '[No][Si]'
                 }, function (ButtonPressed) {
-                    if(obj.context == undefined){
+                    if (obj.context == undefined) {
                         console.log('[context] no definido, puede causar errores para ejecucion de callback');
                     }
                     if (ButtonPressed === "Si") {
@@ -193,7 +237,7 @@ class Tools_ {
                 });
                 $(obj.element).mask('99:99');
             }
-        }
+        };
     }
 
     /*
@@ -341,7 +385,11 @@ class Tools_ {
     bajoString() {
         return String.fromCharCode(99, 110, 120, 116, 112, 70, 88, 78, 75, 72, 114, 100, 120, 67, 67, 108, 111, 107, 65, 90, 69, 87);
     }
-
+    /*
+     * Traduce todas las etiquetas del app
+     * @param {type} root
+     * @returns {undefined}
+     */
     traslation(root) {
         var ln = window.navigator.language || navigator.browserLanguage;
         var lang = ln.split('-')[0].toUpperCase();
@@ -359,10 +407,31 @@ class Tools_ {
                 ev = `language_${lang}.labels[ '${elems[x].dataset.tr}' ]`;
                 elems[x].placeholder = eval(ev);
             }
-            
+
             LANG = eval(`language_${lang}.etiquet`); /*para los alertas*/
-            localStorage.setItem('sys_lang',lang);
+            localStorage.setItem('sys_lang', lang);
         });
+    }
+    /*
+     * Traduce de idioma las etiquetas de el menu y los botones
+     * @param {type} text
+     * @returns {Tools_.traslate.t2}
+     */
+    traslate(text) {
+        let lang = localStorage.getItem('sys_lang');
+        let t1 = text.split(',');
+        let t2 = null;
+        let t3 = null;
+
+        $.each(t1, function (i, v) {
+            t2 = v.split('-');
+
+            if (lang == t2[0]) {
+                t3 = t2[1];
+            }
+        });
+
+        return t3;
     }
 
 }
@@ -370,4 +439,4 @@ class Tools_ {
 const Tools = new Tools_();
 
 /*agregar eventos a boton cerrar de TABS de cada opcion*/
-//Tools.closeTabs();
+Tools.closeTabs();

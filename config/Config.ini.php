@@ -5,6 +5,7 @@ define('APP_COMPANY','LIVIAN');
 
 require_once ROOT . 'config' . DS . 'loads' . DS . 'LoadVendor.php';
 require_once ROOT . 'config' . DS . 'loads' . DS . 'LoadLibs.php';
+require_once ROOT . 'config' . DS . 'prefix' . DS . 'php.php';
 
 use Vendor\Obj;
 

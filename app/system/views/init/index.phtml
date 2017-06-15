@@ -31,7 +31,7 @@
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
                         <div class=" profile-element" style="display: block;float: left"> 
-                            
+
                             <span data-toggle="dropdown" class="dropdown-toggle" href="#" style="display: inline-block;cursor: pointer">
                                 <span class="text-muted text-xs block" style="color:#fff"><?php echo Obj()->Vendor->Session->get('sys_defaultNameRol') ?> <b class="caret"></b></span> 
                             </span>
@@ -50,7 +50,7 @@
                             </ul>
                             <script>
                                 $('.arol').click(function () {
-                                    <?php echo $ocr ?>
+<?php echo $ocr ?>
                                 });
                             </script>
                         </div>
@@ -163,6 +163,22 @@
             </nav>
         </div>
 
+
+        <!-- #MAIN CONTENT -->
+        <div id="content-sys" style="margin-top: 10px">
+            <!-- CONTENEDOR DE LOS TABS GENERALES DE MODULOS -->
+            <div id="cont-general-tabs-sys" style="background: #F4F6FA;border: 0px;">
+                <ul id="cont-tabs-sys" style="border: 0px;">
+                </ul>
+                <div id="cont-main-sys" style="background: #ffffff;border: 1px solid #ddd"></div>
+            </div>
+            <!-- FIN CONTENEDOR DE LOS TABS GENERALES DE MODULOS -->
+            <!--CONTENEDOR DE LOS MODALS-->
+            <div id="cont-modal-sys"></div>
+            <!--FIN CONTENEDOR DE LOS MODALS-->
+        </div>
+
+        <!-- END #MAIN CONTENT -->
 
     </div>
 

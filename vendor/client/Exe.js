@@ -1,121 +1,129 @@
 "use strict"
 class Exe_ {
-    
+
     constructor() {
         /*aqui metodos privados*/
         this._includesArray = {};           /*almacena todos los script incluidos*/
         this._callback = null;              /*almacena el callback de cada require*/
-        
+        this._title = null;
+        this._rooot = null;
+
         /*
          * crea y agrega el script requerido
          */
-        this._createScript = function(requires){
-            let obj      = this;
+        this._createScript = function (requires) {
+            let obj = this;
             let callback = obj._callback;
             let scriptId = requires.replace(/\//g, "");             /*se quita los / */
-            let myRand   = parseInt(Math.random() * 999999999999999);
-            let body     = document.getElementsByTagName('body')[0];
-            
-            let script   = document.createElement('script');
-            script.type  = 'text/javascript';
-            script.id    = 'script_' + scriptId;
+            let myRand = parseInt(Math.random() * 999999999999999);
+            let body = document.getElementsByTagName('body')[0];
+
+            let script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.id = 'script_' + scriptId;
             script.async = 'async';
-            script.src   = requires + '.js?' + myRand;
- 
+            script.src = requires + '.js?' + myRand;
+
             let onCallback = function () {
                 if ($.isFunction(callback)) {
                     callback();
                 }
 
-                let pos  = requires.lastIndexOf('/') + 1;
+                let pos = requires.lastIndexOf('/') + 1;
                 let file = requires.substr(pos);
-                
+
                 /*despues que carga el ajax se debe ejecutar el DOM*/
                 if (file.search('Ajax') > 0) {
-                    let f = file.substr(0, file.length - 4)+'Dom';                               
+                    let f = file.substr(0, file.length - 4) + 'Dom';
                     obj._builtPrototype(f);
                 }
             };
-            
+
             script.onload = onCallback;
 
             body.appendChild(script);
-            
+
             /*elimina script incluido del HTML*/
             $('#script_' + scriptId).remove();
-        
+
             this._callback = null; /*se limpia callback*/
         };
-        
+
         this._builtPrototype = function (obj) {
-            setTimeout(function(){
+            setTimeout(function () {
                 /*agrego obj como prototipo a Exe*/
-                let sc  = `Exe_.prototype.${obj} = new ${obj}_(); Exe.${obj}.main();`;
+                let sc = `Exe_.prototype.${obj} = new ${obj}_(); Exe.${obj}.main();`;
 
                 eval(sc);
-            },400); /*se le da un tiempo de 400 milisegundos porque en mozilla generaba error con el Dom_.js*/
+            }, 400); /*se le da un tiempo de 400 milisegundos porque en mozilla generaba error con el Dom_.js*/
         };
-    
+
         /*
          * Crea la ruta del js a incluir
          */
-        this._root = function(namespace,cadena){
+        this._root = function (namespace, cadena) {
             let module = namespace;
             let opcion = cadena;
-            
-            let dom   = opcion+'Dom';
-            let ajax  = opcion+'Ajax';
-          
+
+            let dom = opcion + 'Dom';
+            let ajax = opcion + 'Ajax';
+
             let folder = opcion.toLowerCase();         /*carpeta dentro de /views/ */
-            
-            let rootD   = 'app/'+module+'/views/'+folder+'/js/'+dom;    /*ruta del Dom.js a incluir*/
-            let rootA   = 'app/'+module+'/views/'+folder+'/js/'+ajax;    /*ruta del Ajax.js a incluir*/
-            
-            return {rootDom:rootD,rootAjax:rootA};
+
+            let rootD = 'app/' + module + '/views/' + folder + '/js/' + dom;    /*ruta del Dom.js a incluir*/
+            let rootA = 'app/' + module + '/views/' + folder + '/js/' + ajax;    /*ruta del Ajax.js a incluir*/
+
+            return {rootDom: rootD, rootAjax: rootA};
         };
-        
+
         /*
          * incluye un script desde una cadena:: config/lang/js/lang_ES
          */
-        this._requireString = function(requires){
+        this._requireString = function (requires) {
             /*se verifica si ya se incluyo*/
             //if(!this._includesArray[requires]){ /*EN DESARROLLO DEBE PERMITIR VOLER A CARGAR LOS JS---EN PRODUCCION SE DEBE ESCOMENTAR EL if{}*/
-                this._includesArray[requires] = true; /*se registra como incluido*/
-                this._createScript(requires);   /*se crea el include*/
+            this._includesArray[requires] = true; /*se registra como incluido*/
+            this._createScript(requires);   /*se crea el include*/
             //}
         };
-        
-        this._requireArray = function(requires){
-            let obj  = this;
+
+        this._requireArray = function (requires) {
+            let obj = this;
             let root = '';
-            
-            if($.isArray(requires)){
-                /*array: [{sistema: 'LoginView'}]*/
-                requires.forEach((i,v)=>{
-                    $.each(i,function(a,b){
-                        root = obj._root(a,b);
+
+            if ($.isArray(requires)) {
+                /*array: [{system: 'Init'}]*/
+                requires.forEach((i, v) => {
+                    $.each(i, function (a, b) {
+                        root = obj._root(a, b);
                         obj._requireString(root.rootAjax);
-                        setTimeout(function(){
+                        setTimeout(function () {
                             obj._requireString(root.rootDom);
-                        },50);
+                        }, 50);
                     });
                 });
-            }else{
-                /*array: {sistema: 'main::LoginView'}*/
-                $.each(requires,function(a,b){
-                    root = obj._root(a,b);
+            } else {
+                /*array: {system: 'Init'}*/
+                $.each(requires, function (a, b) {
+                    root = obj._root(a, b);
                     obj._requireString(root.rootAjax);
-                    setTimeout(function(){
+                    setTimeout(function () {
                         obj._requireString(root.rootDom);
-                    },50);
+                    }, 50);
                 });
             }
         };
     }
-    
-    require(requires,callback = null){
-        this._callback = callback;
-        switch(typeof requires){
+
+    require(requires, callback = null) {
+        if ($.isFunction(callback)) {
+            this._callback = callback;
+        } else {
+            this._title = $.trim($(callback).html());
+            this._rooot = $.trim($(callback).data('root'));
+        }
+
+        switch (typeof requires) {
             case 'string':
                 /*se incluye js desde un string*/
                 this._requireString(requires);
@@ -127,5 +135,13 @@ class Exe_ {
         }
     }
     
+    getTitle(){
+        return this._title;
+    }
+    
+    getRoot(){
+        return this._rooot;
+    }
+
 }
 const Exe = new Exe_();

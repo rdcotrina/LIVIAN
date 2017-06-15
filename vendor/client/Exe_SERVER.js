@@ -102,7 +102,7 @@ class Exe_ {
                     });
                 });
             }else{
-                /*array: {sistema: 'main::LoginView'}*/
+                /*array: {sistema: 'LoginView'}*/
                 $.each(requires,function(a,b){
                     root = obj._root(a,b);
                     obj._requireString(root.rootModel);
