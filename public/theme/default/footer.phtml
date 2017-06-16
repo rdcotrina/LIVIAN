@@ -8,7 +8,6 @@
          });
          */
         var LANG = null; /*objeto para los alertas y labels de botones y demas*/
-        var BASE_URL = '<?php echo BASE_URL?>';
         
         Exe.require("<?php echo $rutaLayout['js']; ?>bootstrap");
         Exe.require("<?php echo $rutaLayout['js']; ?>plugins/validate/jquery.validate.min");
@@ -55,6 +54,7 @@
     <?php 
         endif; 
         require_once ROOT . 'config' . DS . 'prefix' . DS . 'js.php';
+        require_once ROOT . 'config' . DS . 'prefix' . DS . 'btn.php';
     ?>
         
     </body>

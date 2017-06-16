@@ -27,7 +27,8 @@ class Tools_ {
         this._tabs.tabs("refresh");
         
         if (obj.fnCallback !== undefined) {
-            obj.fnCallback();
+            if(obj.context == undefined){ console.log('[context] no definido.'); }
+            obj.fnCallback(obj.context);
         }
 
         $('#li-' + obj.id).find('a').click();
@@ -434,6 +435,18 @@ class Tools_ {
         return t3;
     }
 
+    breadcrumb(data){
+        let d = data.split('/');
+        let b = `
+        <ul class="lv-breadcrumb">
+            <li><a href="javascript:;"><i class="fa fa-home"></i></a></li>`;
+        $.each(d,function(i,v){
+            b += `<li><a href="javascript:;">${v}</a></li>`;
+        });
+        b += `</ul>`;
+        return b;
+    }
+    
 }
 
 const Tools = new Tools_();

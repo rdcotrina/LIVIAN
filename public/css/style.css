@@ -8562,3 +8562,86 @@ body.md-skin {
     margin: 0;
   }
 }
+
+/*bread*/
+.lv-breadcrumb{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lv-breadcrumb{
+  overflow: hidden;
+  width: 100%;
+}
+
+.lv-breadcrumb li{
+  float: left;
+  margin: 0 .5em 0 1em;
+}
+
+.lv-breadcrumb a{
+  background: #f8ac59;
+  padding: .7em 1em;
+  float: left;
+  text-decoration: none;
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(111,111,111,.5); 
+  position: relative;
+}
+
+.lv-breadcrumb a:hover{
+  background: orange;
+}
+
+.lv-breadcrumb a::before{
+  content: "";
+  position: absolute;
+  top: 50%; 
+  margin-top: -1.5em;   
+  border-width: 1.5em 0 1.5em 1em;
+  border-style: solid;
+  border-color: #f8ac59 transparent;
+  left: -1em;
+}
+
+.lv-breadcrumb a:hover::before{
+  border-color: orange transparent;
+}
+
+.lv-breadcrumb a::after{
+  content: "";
+  position: absolute;
+  top: 50%; 
+  margin-top: -1.5em;   
+  border-top: 1.5em solid transparent;
+  border-bottom: 1.5em solid transparent;
+  border-left: 1em solid #f8ac59;
+  right: -1em;
+}
+
+.lv-breadcrumb a:hover::after{
+  border-left-color: orange;
+}
+
+.lv-breadcrumb .current,
+.lv-breadcrumb .current:hover{
+  font-weight: bold;
+  background: none;
+}
+
+.lv-breadcrumb .current::after,
+.lv-breadcrumb .current::before{
+  content: normal;
+}
+
+.lv-breadcrumb li:nth-last-child(1) a{
+    font-weight: bold;
+    background: #333;
+}
+.lv-breadcrumb li:nth-last-child(1) a::after{
+  border-left: 1em solid #333;
+}
+.lv-breadcrumb li:nth-last-child(1) a::before{
+  border-color: #333 transparent;
+}

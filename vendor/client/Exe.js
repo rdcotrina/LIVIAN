@@ -7,6 +7,7 @@ class Exe_ {
         this._callback = null;              /*almacena el callback de cada require*/
         this._title = null;
         this._rooot = null;
+        this._alias = null;
 
         /*
          * crea y agrega el script requerido
@@ -119,8 +120,9 @@ class Exe_ {
         if ($.isFunction(callback)) {
             this._callback = callback;
         } else {
-            this._title = $.trim($(callback).find('.text-menu').html());
+            this._title = $.trim($(callback).find('.text-menu-sm').html());
             this._rooot = $.trim($(callback).data('root'));
+            this._alias = $.trim($(callback).data('a'));
         }
 
         switch (typeof requires) {
@@ -141,6 +143,10 @@ class Exe_ {
     
     getRoot(){
         return this._rooot;
+    }
+    
+    getAlias(){
+        return this._alias;
     }
 
 }

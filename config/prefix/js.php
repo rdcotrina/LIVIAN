@@ -1,8 +1,8 @@
 <script>
-    var tabs = {};
+    var TABS = {};
 
-    tabs.MNU = '<?php echo MNU?>';
-    tabs.BTN = '<?php echo BTN?>';
+    TABS.MNU = '<?php echo MNU?>';
+    TABS.BTN = '<?php echo BTN?>';
 
 </script>
 

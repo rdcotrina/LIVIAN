@@ -10,5 +10,9 @@ class MenuAjax_ extends Ajax_ {
 //            clave: $('#txtClave')
 //        };
     }
+    
+    index(){
+         
+    }
 
 }

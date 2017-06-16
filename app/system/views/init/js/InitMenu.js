@@ -33,14 +33,14 @@
                         if(v.parent == id_menu){
                             if(JSON.stringify(cont).indexOf(v.id_menu) == -1){
                                 name = Tools.traslate(v.nmenu);
-                                rot = `${root},${name}`;
+                                rot = `${root} / ${name}`;
                                 
                                 icon = (v.evt_ajax != 'not')?'fa fa-bars':'fa fa-folder-open';
                                 sp = (v.evt_ajax != 'not')?'&nbsp;':'';
                                 
                                 li = `
                                 <li id="li_${v.id_menu}">
-                                    <a href="javascript:;" data-root="${rot}"><i class="${icon}"></i><div class="line-vertical"></div>&nbsp;${sp} <span class="text-menu-sm">${name}</span></a>`;
+                                    <a href="javascript:;" data-root="${rot}"><i class="${icon}" style="color:#f8ac59;"></i><div class="line-vertical"></div>&nbsp;${sp} <span class="text-menu-sm">${name}</span></a>`;
                                     if(v.evt_ajax == 'not'){
                                         li += `<ul id="mnu_${v.id_menu}"></ul>`;
                                     }
@@ -50,6 +50,9 @@
                                 $(`#mnu_${id_menu}`).append(li);
                                 
                                 if(v.evt_ajax != 'not'){
+                                    
+                                    $(`#li_${v.id_menu}`).find('a').data('a',v.alias);
+                                    
                                     $(`#li_${v.id_menu}`).find('a').click(function(){
                                         eval(v.evt_ajax);
                                     });
@@ -77,7 +80,7 @@
                                 name = Tools.traslate(v.nmenu);
                                 li = `
                                 <li>
-                                    <a href="javascript:;" data-root="${name}"><i class="fa fa-folder-open"></i><div class="line-vertical"></div>&nbsp; <span class="text-menu-sm">${name}</span></a>
+                                    <a href="javascript:;" data-root="${name}"><i class="fa fa-folder-open" style="color:#f8ac59;"></i><div class="line-vertical"></div>&nbsp; <span class="text-menu-sm">${name}</span></a>
                                     <ul id="mnu_${v.id_menu}"></ul>
                                 </li>`;
                                 cont.push(v.id_menu);
@@ -92,12 +95,13 @@
                             if(JSON.stringify(cont).indexOf(v.id_menu) == -1){
                                 name = Tools.traslate(v.nmenu);
                                 li = `<li id="li_${v.id_menu}">
-                                        <a href="javascript:;" data-root="${name}"><i class="fa fa-bars"></i><div class="line-vertical"></div>&nbsp;&nbsp; <span class="text-menu-sm">${name}</span></a>
+                                        <a href="javascript:;" data-root="${name}"><i class="fa fa-bars" style="color:#f8ac59;"></i><div class="line-vertical"></div>&nbsp;&nbsp; <span class="text-menu-sm">${name}</span></a>
                                     </li>`;
                                 cont.push(v.id_menu);
                                 
                                 $(t).append(li);
                                 
+                                $(`#li_${v.id_menu}`).find('a').data('a',v.alias);
                                 $(`#li_${v.id_menu}`).find('a').click(function(){
                                     eval(v.evt_ajax);
                                 });
