@@ -50,7 +50,7 @@
                             </ul>
                             <script>
                                 $('.arol').click(function () {
-                                    <?php echo $ocr ?>
+<?php echo $ocr ?>
                                 });
                             </script>
                         </div>
@@ -179,7 +179,14 @@
         </div>
 
         <!-- END #MAIN CONTENT -->
-
+        
+        <div id="process-general" class="ibox-content sk-loading" onclick="$(this).fadeOut()">
+            <div class="sk-spinner sk-spinner-chasing-dots">
+                <div class="sk-dot1"></div>
+                <div class="sk-dot2"></div>
+            </div>
+        </div> 
+        
     </div>
 
 

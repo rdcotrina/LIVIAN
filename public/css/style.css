@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700");
+/*@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700");*/
 /*
  *
  *   INSPINIA - Responsive Admin Theme
@@ -8644,4 +8644,15 @@ body.md-skin {
 }
 .lv-breadcrumb li:nth-last-child(1) a::before{
   border-color: #333 transparent;
+}
+
+#process-general{
+    position: fixed;
+    background:url(../img/overlay_.png);
+    width: 100%;
+    height: 200%;
+    z-index: 999999999;
+    top:0px;
+    left: 0px;
+    display: none;
 }

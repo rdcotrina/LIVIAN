@@ -21,7 +21,7 @@
                     let b = `<button id="BCTXT_${v.alias + v.alias_btn}" type="button" class="${v.css}"><i class="${v.icono}"></i> ${Tools.traslate(v.nboton)}</button>`;
                     BTNSYSCTXT.push({keymnu: v.alias, keybtn: v.alias_btn, btn: b});
 
-                    b = `<button id="BSTXT_${v.alias + v.alias_btn}" type="button" class="${v.css}" title="${Tools.traslate(v.nboton)}"><i class="${v.icono}"></i></button>`;
+                    b = `<button id="BSTXT_${v.alias + v.alias_btn}" type="button" class="${v.css}" title="${Tools.traslate(v.nboton)}" data-style="expand-right"><i class="${v.icono}"></i></button>`;
                     BTNSYSSTXT.push({keymnu: v.alias, keybtn: v.alias_btn, btn: b});
                 }
 
@@ -35,12 +35,7 @@
                 let method = {
 
                     init: function () {
-                        if (oSettings.data.length > 0) {
-                            /*almacenando los botones*/
-                            _private.createButton(oSettings);
-                        } else {
-                            /*devuelve boton requerido*/
-                        }
+                        _private.createButton(oSettings);
                     }
 
                 };
@@ -51,37 +46,55 @@
             });
         },
 
-        getButtonsys: function (opt) {
+        getButtonsys: function (opt,callback = null) {
 
             let defaults = {
-                keymnu: null, /*alias del menu*/
-                keybtn: [], /*alias de los botones*/
-                notext: false               /*indica que se retornara el boton con sus descripcion*/,
-                ajax: null, /*evento js que se aplicara al boton*/
-                evts: ['click']             /*los tipos de events que se aplicara al boton*/
+                keymnu: null,               /*alias del menu*/
+                btns: [],                   /*botones*/
+                notext: false,              /*indica que se retornara el boton con sus descripcion*/
+                container: null
             };
 
             var options = $.extend(defaults, opt);
             /*=========================================METODOS PRIVADOS=========================================*/
             var _private = {
 
+                render: function(oSettings){
+                    let data  = (oSettings.notext)?BTNSYSSTXT:BTNSYSCTXT;
+                    let idbtn = (oSettings.notext)?'BSTXT_':'BCTXT_';
+                    
+                    /*recorrido de botones requeridos*/
+                    $.each(oSettings.btns,function(i,v){
+                        /*recorrido de todos botones generados*/
+                        $.each(data,function(ii,vv){
+                            if(oSettings.keymnu == vv.keymnu && v.keybtn == vv.keybtn){
+                                $(oSettings.container).append(vv.btn);
+                                
+                                /*recorrido de eventos*/
+                                $.each(v.evts,function(a,b){
+                                    $.each(b,function(x,y){
+                                        eval(`
+                                            $('#${idbtn}${oSettings.keymnu}${vv.keybtn}').${x}(function(){
+                                                ${y}
+                                            });
+                                        `);
+                                    });
+                                });
+                            }
+                        });
+                    });
+              
+                    if(typeof callback === 'function'){
+                        callback();
+                    }
+                }
+                
             };
             /*=========================================FIN METODOS PRIVADOS=====================================*/
 
-
             var oSettings = options;
 
-            if(typeof oSettings.keybtn === 'string'){           /*es una cadena, se requiere un boton*/
-                
-            }else if(typeof oSettings.keybtn === 'object'){     /*es un array []*/
-                if(oSettings.keybtn.length === 1){  /*se requiere un boton*/
-                    
-                }else{                              /*se requiere varios botones*/
-                    
-                }
-            }
-            
-
+            _private.render(oSettings);
 
         }
 

@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 class Exe_ {
 
     constructor() {
@@ -8,6 +8,11 @@ class Exe_ {
         this._title = null;
         this._rooot = null;
         this._alias = null;
+        
+        this._esxtraxtFile = function(requires){
+            let pos = requires.lastIndexOf('/') + 1;
+            return requires.substr(pos);
+        };
 
         /*
          * crea y agrega el script requerido
@@ -30,8 +35,9 @@ class Exe_ {
                     callback();
                 }
 
-                let pos = requires.lastIndexOf('/') + 1;
-                let file = requires.substr(pos);
+//                let pos = requires.lastIndexOf('/') + 1;
+//                let file = requires.substr(pos);
+                let file = obj._esxtraxtFile(requires);
 
                 /*despues que carga el ajax se debe ejecutar el DOM*/
                 if (file.search('Ajax') > 0) {
@@ -53,7 +59,13 @@ class Exe_ {
         this._builtPrototype = function (obj) {
             setTimeout(function () {
                 /*agrego obj como prototipo a Exe*/
-                let sc = `Exe_.prototype.${obj} = new ${obj}_(); Exe.${obj}.main();`;
+                let sc = `
+                    console.log('[${obj}] cargado.');
+                    Exe_.prototype.${obj} = new ${obj}_(); 
+                    console.log('[${obj}] instanciado.');
+                    Exe.${obj}.main();
+                    console.log('[Exe.${obj}.main()] ejecutado.');
+                `;
 
                 eval(sc);
             }, 400); /*se le da un tiempo de 400 milisegundos porque en mozilla generaba error con el Dom_.js*/
@@ -82,10 +94,23 @@ class Exe_ {
          */
         this._requireString = function (requires) {
             /*se verifica si ya se incluyo*/
-            //if(!this._includesArray[requires]){ /*EN DESARROLLO DEBE PERMITIR VOLER A CARGAR LOS JS---EN PRODUCCION SE DEBE ESCOMENTAR EL if{}*/
-            this._includesArray[requires] = true; /*se registra como incluido*/
-            this._createScript(requires);   /*se crea el include*/
-            //}
+            if(!this._includesArray[requires]){ /*EN DESARROLLO DEBE PERMITIR VOLER A CARGAR LOS JS---EN PRODUCCION SE DEBE ESCOMENTAR EL if{}*/
+                this._includesArray[requires] = true; /*se registra como incluido*/
+                this._createScript(requires);   /*se crea el include*/
+            }else{
+                let file = this._esxtraxtFile(requires);
+
+                /*despues que carga el ajax se debe ejecutar el DOM*/
+                if (file.search('Ajax') > 0) {
+                    let obj = file.substr(0, file.length - 4) + 'Dom';
+                    let sc = `
+                        Exe.${obj}.main();
+                        console.log('[Exe.${obj}.main()] ejecutado.');
+                    `;
+
+                    eval(sc);
+                }
+            }
         };
 
         this._requireArray = function (requires) {

@@ -22,6 +22,9 @@
         Exe.require("<?php echo BASE_URL; ?>libs/Aes/js/base64");
         Exe.require("<?php echo BASE_URL; ?>libs/Aes/js/utf8");
         
+        Exe.require('<?php echo BASE_URL; ?>app/system/views/init/js/InitMenu');
+        Exe.require('<?php echo BASE_URL; ?>app/system/views/init/js/Button.sys');
+        
         Exe.require("<?php echo $rutaLayout['js']; ?>plugins/pace/pace.min");
     </script>
 
@@ -45,7 +48,7 @@
                         subMenusSubOffsetX: 1,
                         subMenusSubOffsetY: -8
                     });
-                },900);
+                },500);
             });
                         
             

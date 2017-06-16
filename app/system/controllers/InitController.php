@@ -17,11 +17,11 @@ class InitController extends \System\Models\InitModel {
 
     public function index() {
         if (Obj()->Vendor->Session->get('sys_isLogin')) {
-            /* obteniendo el menu del usuario */
-            $this->_getMenuUser();
-
             /* obteniendo roles de usuario */
             $this->_getRolesUser();
+            
+            /* obteniendo el menu del usuario */
+            $this->_getMenuUser();
 
             Obj()->Vendor->View->render('index', false);
         } else {

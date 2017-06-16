@@ -1,6 +1,4 @@
 "use strict";
-Exe.require('app/system/views/init/js/InitMenu');
-Exe.require('app/system/views/init/js/Button.sys');
 
 class InitDom_ extends InitAjax_ {
 
@@ -9,7 +7,9 @@ class InitDom_ extends InitAjax_ {
         this._logOut = super.logOut;
     }
 
-    main() {}
+    main() {
+        console.log('...');
+    }
 
     postLogin() {
         let t = this;

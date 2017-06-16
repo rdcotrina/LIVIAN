@@ -1,5 +1,4 @@
 "use strict";
-
 class MenuDom_ extends MenuAjax_ {
 
     constructor() {
@@ -14,22 +13,38 @@ class MenuDom_ extends MenuAjax_ {
             context: this,
             id: this._alias,
             label: Exe.getTitle(),
-            fnCallback: function(context) {
-                
+            fnCallback: function (context) {
+                /*agregando breadcrumb*/
                 $(context._container).html(Tools.breadcrumb(Exe.getRoot()));
+
+                /*id de div para los botones*/
+                let idBtnra = `toolbar_${context._alias}`;
                 
+                /*div para los botones*/
                 let btnr = $('<div />');
-                btnr.attr('id',`toolbar_${context._alias}`);
-                
-                $(context._container).append(btnr);
-                
-                $.fn.getButtonsys({
-                    keymnu: context._alias,
-                    keybtn: [BTNSYS.GRB,BTNSYS.EDT]
+                btnr.attr('id', idBtnra);
+                btnr.addClass('btn-group');
+                btnr.css({
+                    'margin-top': '10px'
                 });
-               
+                
+                /*se agrega el div para los botones*/
+                $(context._container).append(btnr);
+
+                /*cargando los botones*/
+                $.fn.getButtonsys({
+                    container: `#${idBtnra}`,
+                    keymnu: context._alias,
+                    btns: [
+                        {keybtn: BTNSYS.NEW, evts: [{click: 'Exe.MenuDom.formNewMenu();'}]}
+//                        {keybtn: BTNSYS.EDT, evts: [{click: 'alert(99)'}]}
+                    ]
+                });
             }
         });
     }
 
+    formNewMenu(){
+      
+    }
 }
