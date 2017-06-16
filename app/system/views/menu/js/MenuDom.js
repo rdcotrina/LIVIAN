@@ -1,4 +1,5 @@
 "use strict";
+
 class MenuDom_ extends MenuAjax_ {
 
     constructor() {
@@ -6,6 +7,7 @@ class MenuDom_ extends MenuAjax_ {
         this._index = super.index;
         this._alias = Exe.getAlias();
         this._container = `#${this._alias}_CONTAINER`;
+        this._divmain = `main_${this._alias}`;
     }
 
     main() {
@@ -19,7 +21,7 @@ class MenuDom_ extends MenuAjax_ {
 
                 /*id de div para los botones*/
                 let idBtnra = `toolbar_${context._alias}`;
-                
+
                 /*div para los botones*/
                 let btnr = $('<div />');
                 btnr.attr('id', idBtnra);
@@ -27,7 +29,7 @@ class MenuDom_ extends MenuAjax_ {
                 btnr.css({
                     'margin-top': '10px'
                 });
-                
+
                 /*se agrega el div para los botones*/
                 $(context._container).append(btnr);
 
@@ -37,14 +39,18 @@ class MenuDom_ extends MenuAjax_ {
                     keymnu: context._alias,
                     btns: [
                         {keybtn: BTNSYS.NEW, evts: [{click: 'Exe.MenuDom.formNewMenu();'}]}
-//                        {keybtn: BTNSYS.EDT, evts: [{click: 'alert(99)'}]}
+                        //{keybtn: BTNSYS.EDT, evts: [{click: 'alert(99)'}]}
                     ]
                 });
+
+                let dmain = $('<div />');
+                dmain.attr('id', context._divmain);
+                $(context._container).append(dmain);
             }
         });
     }
 
-    formNewMenu(){
-      
+    formNewMenu() {
+        super.formNewMenu(this._divmain);
     }
 }

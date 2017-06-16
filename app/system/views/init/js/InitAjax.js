@@ -19,13 +19,13 @@ class InitAjax_ extends Ajax_ {
             root: this._controller + 'postLogin',
             form: '#formLogin',
             clear: false,
-            fnCallback: function (data) {
-                if (data.result == 1) {
+            fnCallback: function (obj) {
+                if (obj.data.result == 1) {
                     Tools.notify().ok({
                         content: LANG.loginok
                     });
                     location.reload(true);
-                } else if (data.result == 2) {
+                } else if (obj.data.result == 2) {
                     $("#main").effect('shake');
                     Tools.notify().error({
                         content: LANG.loginfail
@@ -42,7 +42,7 @@ class InitAjax_ extends Ajax_ {
             encrypt: true,
             root: this._controller + 'logOut',
             clear: false,
-            fnCallback: function () {
+            fnCallback: function (obj) {
                 location.reload(true);
                 localStorage.clear();
             }

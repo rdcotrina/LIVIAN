@@ -447,6 +447,22 @@ class Tools_ {
         return b;
     }
     
+    closeModal(obj) {
+        var search = obj.toString().indexOf('#'), id = '';
+        if (search === -1) {/*cuando se cierra modal desde botones*/
+            id = '#' + $(obj).parent().parent().parent().parent().attr('id');
+        } else {/*cuando se cierra modal desde closeModal*/
+            id = obj;
+        }
+
+        $(id).modal('hide');
+        setTimeout(function () {
+            $(id).remove();
+            $(id + '_modalFormBoot').remove();
+        }, 200);
+        $(".modal").off("keypress");/*quitar evento que se agrega al momento de usar el TREE.php*/
+    };
+    
 }
 
 const Tools = new Tools_();

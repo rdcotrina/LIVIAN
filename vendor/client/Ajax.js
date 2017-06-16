@@ -96,6 +96,7 @@ class Ajax_ {
         let clearEvnts = (obj.clearEvnts !== undefined) ? obj.clearEvnts : [];
         let encrypt = (obj.encrypt === undefined) ? false : obj.encrypt;
         let abort = (obj.abort === undefined) ? false : obj.abort;
+        let context = (obj.context === undefined) ? '[context] no definido' : obj.context;
 
         if (obj.flag !== undefined) {
             this._sData.push({name: '_flag', value: obj.flag});
@@ -148,7 +149,7 @@ class Ajax_ {
 
                 if (obj.fnCallback !== undefined) {//si existe callback
                     let callBback = obj.fnCallback;
-                    callBback(data);
+                    callBback({data: data,context: context});
                 }
 
                 /*se optiene parametro DUPLICADO*/
