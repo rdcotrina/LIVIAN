@@ -172,7 +172,7 @@ class Ajax_ {
                 /*efecto para los checkbox*/
                 $('.i-checks').iCheck({
                     checkboxClass: 'icheckbox_square-green',
-                    radioClass: 'iradio_square-green',
+                    radioClass: 'iradio_square-green'
                 });
                 
                 
