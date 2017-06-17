@@ -46,12 +46,12 @@
             });
         },
 
-        getButtonsys: function (opt,callback = null) {
+        getButtonsys: function (opt, callback = null) {
 
             let defaults = {
-                keymnu: null,               /*alias del menu*/
-                btns: [],                   /*botones*/
-                notext: false,              /*indica que se retornara el boton con sus descripcion*/
+                keymnu: null, /*alias del menu*/
+                btns: [], /*botones*/
+                notext: false, /*indica que se retornara el boton con sus descripcion*/
                 container: null
             };
 
@@ -59,20 +59,26 @@
             /*=========================================METODOS PRIVADOS=========================================*/
             var _private = {
 
-                render: function(oSettings){
-                    let data  = (oSettings.notext)?BTNSYSSTXT:BTNSYSCTXT;
-                    let idbtn = (oSettings.notext)?'BSTXT_':'BCTXT_';
-                    
+                render: function (oSettings) {
+                    let data = (oSettings.notext) ? BTNSYSSTXT : BTNSYSCTXT;
+                    let idbtn = (oSettings.notext) ? 'BSTXT_' : 'BCTXT_';
+                    let typebtn = null;
+
                     /*recorrido de botones requeridos*/
-                    $.each(oSettings.btns,function(i,v){
+                    $.each(oSettings.btns, function (i, v) {
+                        typebtn = (v.type == undefined) ? 'button' : v.type;
+
                         /*recorrido de todos botones generados*/
-                        $.each(data,function(ii,vv){
-                            if(oSettings.keymnu == vv.keymnu && v.keybtn == vv.keybtn){
+                        $.each(data, function (ii, vv) {
+                            if (oSettings.keymnu == vv.keymnu && v.keybtn == vv.keybtn) {
                                 $(oSettings.container).append(vv.btn);
-                                
+
+                                /*agregar type de boton*/
+                                $(`#${idbtn}${oSettings.keymnu}${vv.keybtn}`).attr('type',typebtn);
+
                                 /*recorrido de eventos*/
-                                $.each(v.evts,function(a,b){
-                                    $.each(b,function(x,y){
+                                $.each(v.evts, function (a, b) {
+                                    $.each(b, function (x, y) {
                                         eval(`
                                             $('#${idbtn}${oSettings.keymnu}${vv.keybtn}').${x}(function(){
                                                 ${y}
@@ -83,12 +89,12 @@
                             }
                         });
                     });
-              
-                    if(typeof callback === 'function'){
+
+                    if (typeof callback === 'function') {
                         callback();
                     }
                 }
-                
+
             };
             /*=========================================FIN METODOS PRIVADOS=====================================*/
 

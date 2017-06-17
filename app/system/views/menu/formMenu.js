@@ -1,30 +1,37 @@
-<div class="modal inmodal fade in" id="myModal5">
-    <div class="modal-dialog modal-lg">
+<form class="modal inmodal fade in" id="myModal5">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">Modalxxxxxxxxxxxx title</h4>
-                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
+                <button type="button" class="close"><span>×</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title tr-language" data-tr="title_nmenu"></h4>
             </div>
             <div class="modal-body form-horizontal">
-            
+
                 <div class="form-group">
-                    <label class="col-lg-2 control-label">Email</label>
+                    <label class="col-lg-2 control-label tr-language" data-tr="descripcion"></label>
                     <div class="col-lg-10">
-                        <input type="email" placeholder="Email" class="form-control" /> 
-                        <span class="help-block m-b-none">Example block-level help text here.</span>
+                        <input type="text" class="form-control" id="txt_descripcion" name="txt_descripcion"/> 
                     </div>
                 </div>
-                
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <div class="i-checks">
+                            <label> 
+                                <input type="checkbox" id="chk_activo" name="chk_activo"/>
+                                <i></i> <span class="tr-language" data-tr="chk_activo"></span> 
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-white lv-close" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+            <div class="modal-footer" id="foot_btns">
+                <button type="button" class="btn btn-warning lv-close" data-dismiss="modal"><i class="fa fa-close"></i> <span class="tr-language" data-tr="btn_close"></span></button>
             </div>
         </div>
     </div>
     <script>
         $('#myModal5').modal('show');
     </script>
-</div>
+</form>

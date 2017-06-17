@@ -8,7 +8,11 @@ var language_ES = {
         buscar_menu: 'Buscar menú...',
         m_app: 'Aplicación',
         cambia_pass: 'Cambiar contraseña',
-        out: 'Salir'
+        out: 'Salir',
+        descripcion: 'Descripción',
+        title_nmenu: 'Nuevo Menú',
+        chk_activo: 'Activo',
+        btn_close: 'Cerrar'
     },
     etiquet: { /*mensajes ALERT*/
         loginok: 'Ingreso correctamente.',

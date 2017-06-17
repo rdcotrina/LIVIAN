@@ -391,11 +391,11 @@ class Tools_ {
      * @param {type} root
      * @returns {undefined}
      */
-    traslation(root) {
+    traslation() {
         var ln = window.navigator.language || navigator.browserLanguage;
         var lang = ln.split('-')[0].toUpperCase();
 
-        Exe.require(`${root}config/18n/language_${lang}`, function () {
+        Exe.require(`${localStorage.getItem('sys_root')}config/18n/language_${lang}`, function () {
 
             var elems = document.querySelectorAll(".tr-language"), ev = '';
             for (var x = 0; x < elems.length; x++) {
@@ -446,7 +446,11 @@ class Tools_ {
         b += `</ul>`;
         return b;
     }
-    
+    /*
+     * Cierra y quita los modals del DOM
+     * @param {type} obj
+     * @returns {undefined}
+     */
     closeModal(obj) {
         var search = obj.toString().indexOf('#'), id = '';
         if (search === -1) {/*cuando se cierra modal desde botones*/
@@ -461,7 +465,26 @@ class Tools_ {
             $(id + '_modalFormBoot').remove();
         }, 200);
         $(".modal").off("keypress");/*quitar evento que se agrega al momento de usar el TREE.php*/
-    };
+    }
+    /*
+     * Agregar alias a HTML
+     * @param {type} data
+     * @param {type} alias
+     * @returns {undefined}
+     */
+    addAliasData(data,alias){
+        $(data).find('input,div,span,select,label,button,form').each(function(i,v){
+            if($(v).attr('name') != undefined){
+                $(`#${v.id}`).attr('name',alias+$(v).attr('id'));
+            }
+            if($(v).attr('id') != undefined){
+                $(`#${v.id}`).attr('id',alias+$(v).attr('id'));
+            }
+            if($($(v).parent().prop('tagName')).attr('id') != undefined){
+                $(`#${$($(v).parent().prop('tagName')).attr('id')}`).attr('id',alias+$($(v).parent().prop('tagName')).attr('id'));
+            }
+        });
+    }
     
 }
 

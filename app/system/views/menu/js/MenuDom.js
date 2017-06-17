@@ -38,7 +38,7 @@ class MenuDom_ extends MenuAjax_ {
                     container: `#${idBtnra}`,
                     keymnu: context._alias,
                     btns: [
-                        {keybtn: BTNSYS.NEW, evts: [{click: 'Exe.MenuDom.formNewMenu();'}]}
+                        {keybtn: BTNSYS.NEW, evts: [{click: 'Exe.MenuDom.formNewMenu(this);'}]}
                         //{keybtn: BTNSYS.EDT, evts: [{click: 'alert(99)'}]}
                     ]
                 });
@@ -50,7 +50,18 @@ class MenuDom_ extends MenuAjax_ {
         });
     }
 
-    formNewMenu() {
-        super.formNewMenu(this._divmain);
+    formNewMenu(btn) {
+        super.formNewMenu(btn,this);
     }
+    
+    addButtonsFormNew(){
+        $.fn.getButtonsys({
+            container: `#${this._alias}foot_btns`,
+            keymnu: this._alias,
+            btns: [{keybtn: BTNSYS.GRB,type:'submit'}]
+        });
+    }
+    
+    
+    
 }

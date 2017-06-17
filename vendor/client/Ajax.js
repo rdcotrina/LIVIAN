@@ -53,7 +53,7 @@ class Ajax_ {
                 objeto: el,
                 xhtml: $(el).html()
             });
-            $(el).html('<i class="fa fa-gear fa-lg fa-spin"></i>');
+            $(el).html('<i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i>');
             $(el).attr('disabled', true);
         };
 
@@ -92,8 +92,8 @@ class Ajax_ {
         }
 
         let typeData = (obj.dataType !== undefined) ? obj.dataType : 'json';
+        let dataAlias = (obj.dataAlias !== undefined) ? obj.dataAlias : null;
         let clear = (obj.clear === undefined) ? true : obj.clear;
-        let clearEvnts = (obj.clearEvnts !== undefined) ? obj.clearEvnts : [];
         let encrypt = (obj.encrypt === undefined) ? false : obj.encrypt;
         let abort = (obj.abort === undefined) ? false : obj.abort;
         let context = (obj.context === undefined) ? '[context] no definido' : obj.context;
@@ -105,6 +105,10 @@ class Ajax_ {
             obj.fnServerParams(this._sData);
         }
 
+        if($.isEmptyObject(dataAlias)){
+            alert('[dataAlias] no definido, elementos no tendrán ALIAS.');
+        }
+        
         /*serializacion de datos*/
         let datos = this._serialize();
         datos += (obj.form !== undefined) ? '&' + $(obj.form).serialize(encrypt) : '';
@@ -116,6 +120,7 @@ class Ajax_ {
             data: datos,
             url: obj.root,
             dataType: typeData,
+            cache: false,
             beforeSend: function (data2) {
                 if (obj.abort) {
                     if (httpR) {
@@ -146,10 +151,10 @@ class Ajax_ {
                 if (obj.element !== undefined) {
                     ttis._processObjetoOut(obj.element);//respuesta de servidor finalizada
                 }
-
+                
                 if (obj.fnCallback !== undefined) {//si existe callback
                     let callBback = obj.fnCallback;
-                    callBback({data: data,context: context});
+                    callBback({data: data, context: context});
                 }
 
                 /*se optiene parametro DUPLICADO*/
@@ -164,17 +169,17 @@ class Ajax_ {
                     ttis._processOut();//respuesta de servidor finalizada
                 }
 
-                /*limpiando eventos de FORM*/
-                if (clearEvnts.length > 0 && $.isArray(clearEvnts)) {
-                    $.each(clearEvnts, function (index, value) {
-                        let ev = "\
-                        Tools.removeAttr()." + value + "({\n\
-                            container: '#" + $(data).attr("id") + "',\n\
-                            typeElement: 'a, button, select, input, div, span, li'\n\
-                        });";
-                        eval(ev);
-                    });
-                }
+                /*efecto para los checkbox*/
+                $('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green',
+                });
+                
+                
+            },
+            complete: function(data){
+                Tools.traslation();
+                Tools.addAliasData(data,dataAlias);
             }
         });
 
@@ -192,5 +197,5 @@ class Ajax_ {
     activeBtn(element) {
         this._processObjetoOut(element);
     }
-    
+
 }

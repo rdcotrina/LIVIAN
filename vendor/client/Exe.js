@@ -110,6 +110,10 @@ class Exe_ {
 
                     eval(sc);
                 }
+                /*si archvo ya existe, se verifica si tiene callback y se ejecuta*/
+                if ($.isFunction(this._callback)) {
+                    this._callback();
+                }
             }
         };
 

@@ -8,13 +8,15 @@
          });
          */
         var LANG = null; /*objeto para los alertas y labels de botones y demas*/
+        localStorage.setItem('sys_root','<?php echo BASE_URL; ?>');
         
         Exe.require("<?php echo $rutaLayout['js']; ?>bootstrap");
         Exe.require("<?php echo $rutaLayout['js']; ?>plugins/validate/jquery.validate.min");
         Exe.require("<?php echo BASE_URL; ?>public/js/notification/SmartNotification.min");
+        Exe.require("<?php echo $rutaLayout['js']; ?>plugins/iCheck/icheck.min");
         
         Exe.require("<?php echo BASE_URL; ?>vendor/client/Tools",function(){
-            Tools.traslation('<?php echo BASE_URL; ?>');
+            Tools.traslation();
         });
         Exe.require("<?php echo BASE_URL; ?>libs/Aes/js/aes",function(){
             Exe.require("<?php echo BASE_URL; ?>libs/Aes/js/aesctr");
@@ -26,6 +28,7 @@
         Exe.require('<?php echo BASE_URL; ?>app/system/views/init/js/Button.sys');
         
         Exe.require("<?php echo $rutaLayout['js']; ?>plugins/pace/pace.min");
+        
     </script>
 
     <?php if (!Obj()->Vendor->Session->get('sys_isLogin')) : ?>

@@ -12,16 +12,19 @@ class MenuAjax_ extends Ajax_ {
 //        };
     }
 
-    formNewMenu(divmain) {
+    formNewMenu(btn, context) {
         super.send({
+            element: btn,
             context: this,
             root: `${this._root}formMenu.js`,
-            dataType: 'html',
-            fnServerParams:function(sData){
-                sData.push({name: 'divmain', value: divmain});
+            dataAlias: context._alias,
+            dataType: 'text',
+            fnServerParams: function (sData) {
+                sData.push({name: 'divmain', value: context._divmain});
             },
             fnCallback: function (obj) {
-                $(`#${divmain}`).append(obj.data);
+                $(`#${context._divmain}`).append(obj.data);
+                Exe.MenuDom.addButtonsFormNew();
             }
         });
     }
