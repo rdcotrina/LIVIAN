@@ -471,7 +471,7 @@ class Tools_ {
      * @returns {undefined}
      */
     addAliasData(data, alias) {
-        let sc = null, idsc = null, nform = 0, c = null;
+        let sc = null, idsc = null, nform = 0, c = null, ee = null;
         $(data).find('input,div,span,select,label,button,form,script').each(function (i, v) {
             if ($(v).attr('name') != undefined) {
                 $(`#${v.id}`).attr('name', alias + $(v).attr('id'));
@@ -487,7 +487,7 @@ class Tools_ {
             if ($(v).prop('tagName') == 'SCRIPT') {
                 idsc = alias + $(v).attr('id');
                 sc = $(v).html();
-                //$(`#${idsc}`).remove();
+              
                 /*agregando ALIAS  <script>*/
                 $(data).find('input,div,span,select,label,button,form').each(function (ii, vv) {
                     /*para id de <form>*/
@@ -495,16 +495,26 @@ class Tools_ {
                         c = $(`#${$($(vv).parent().prop('tagName')).attr('id')}`).find('script').html();
                         var t = $($(vv).parent().prop('tagName')).attr('id').replace(alias, '');
 
-                        var f = eval(`c.replace(/${t}/gi,'${alias}${t}')`);
+                        ee = eval(`c.replace(/${t}/gi,'${alias}${t}')`);
 
-                        $(`#${idsc}`).html(f);
+                        $(`#${idsc}`).html(ee);
                     }
 
-//                    if ($(vv).attr('id') != undefined) {
-//                        var f = eval(`c.replace(/${vv.id}/gi,'${alias}${vv.id}')`);
-//                        $(`#${idsc}`).html(f);
-//                    }
+                    if ($(vv).attr('id') != undefined) {
+                        c = $(`#${idsc}`).html();
+                        ee = eval(`c.replace(/${vv.id}/gi,'${alias}${vv.id}')`);
+                        
+                        /*console.log(ee);
+                        ee = eval(`c.replace(/__/g,'(ww)')`);
+                        console.log(ee);*/
+
+                        $(`#${idsc}`).html(ee);
+                        
+                        
+                        $(`#${$(`#${idsc}`).parent('form').attr('id')}`).append(`<script>Tools.removeValidate('#${$(`#${idsc}`).parent('form').attr('id')}');${$(`#${idsc}`).html()}</script>`);
+                    }
                 });
+                $(`#${$(`#${idsc}`).parent('form').attr('id')}`).find('script').remove();
             }
         });
 

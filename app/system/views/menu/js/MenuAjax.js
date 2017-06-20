@@ -25,6 +25,7 @@ class MenuAjax_ extends Ajax_ {
             },
             success: function (obj) {
                 $(`#${context._divmain}`).append(obj.data);
+                $('#formNewMenu').modal('show');
             },
             final: function(obj){/*se ejecuta una vez que se cargo el HTML en success*/
                 Exe.MenuDom.addButtonsFormNew();
@@ -32,8 +33,22 @@ class MenuAjax_ extends Ajax_ {
         });
     }
     
-    postNewMenu(tk){
-        alert('grabar');return false;
+    postNewMenu(){
+        super.send({
+            token: _sys_sg,
+            dataAlias: this._alias,
+            element: `#BCTXT_${this._alias}GRB`,
+            context: this,
+            root: `${this._controller}postNewMenu`,
+            form: `${this._alias}formNewMenu`,
+            dataType: 'json',
+            success: function (obj) {
+                $(`#${this._alias}formNewMenu`).modal('hide');
+            },
+            final: function(obj){
+                //Exe.MenuDom.addButtonsFormNew();
+            }
+        });
     }
 
 }

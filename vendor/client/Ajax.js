@@ -117,6 +117,7 @@ class Ajax_ {
         /*serializacion de datos*/
         let datos = this._serialize();
         datos += (obj.form !== undefined) ? '&' + $(obj.form).serialize(encrypt) : '';
+        datos += `&_alias=${dataAlias}`;
 
         let ttis = this;
         
@@ -185,9 +186,10 @@ class Ajax_ {
                 
             },
             complete: function(a,b){
-                Tools.traslation();
+                if(typeData == 'html' || typeData == 'text'){
+                    Tools.traslation();
+                }
                 Tools.addAliasData(ddat,dataAlias);
-                
                 if (obj.final !== undefined && $.isFunction(obj.final)) {//si existe callback
                     obj.final({data: ddat, context: context});
                 }

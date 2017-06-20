@@ -33,16 +33,13 @@
         </div>
     </div>
     <script id="sc_formNewMenu">
-        $('#formNewMenu').modal('show');
         $("#formNewMenu").validate({
-            // Rules for form validation
             rules: {
                 txt_descripcion: {
                     required: true,
                     minlength: 3
                 }
             },
-            // No cambie el código de abajo
             errorPlacement: function (error, element) {
                 error.insertAfter(element.parent());
             },

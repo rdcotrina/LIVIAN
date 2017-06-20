@@ -12,7 +12,9 @@ class InitAjax_ extends Ajax_ {
     }
 
     postLogin() {
+        _sys_sg = 1;
         super.send({
+            token: 1,
             flag: 1,
             element: '#btn_entrar',
             encrypt: true,
