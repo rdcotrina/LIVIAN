@@ -81,7 +81,7 @@
                                     $.each(b, function (x, y) {
                                         eval(`
                                             $('#${idbtn}${oSettings.keymnu}${vv.keybtn}').${x}(function(){
-                                                ${y}
+                                                ${y}(this,'${_sys_sg}');
                                             });
                                         `);
                                     });

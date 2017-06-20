@@ -1,5 +1,4 @@
-var tostring = Tools.bajoString();
-
+var tostring = _fromCharCode;
 Aes.Ctr = {};  // Aes.Ctr namespace: a subclass or extension of Aes
 
 Aes.Ctr.post = function(plaintext, nBits) {

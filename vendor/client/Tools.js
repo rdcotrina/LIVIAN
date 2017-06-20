@@ -21,20 +21,22 @@ class Tools_ {
 
         let li = $(this._tabTemplate.replace(/#\{href\}/g, "#" + obj.id + '_CONTAINER').replace(/#\{label\}/g, obj.label).replace(/#\{idli\}/g, 'li-' + obj.id));
         let tabContentHtml = (obj.content !== undefined) ? obj.content : '<h1><i class="fa fa-cog fa-spin"></i> Cargando...</h1>';
-        
+
         this._tabs.find("#cont-tabs-sys").append(li);
         this._tabs.find('#cont-main-sys').append("<div id='" + obj.id + "_CONTAINER' class='tab-pane'><p>" + tabContentHtml + "</p></div>");
         this._tabs.tabs("refresh");
-        
+
         if (obj.fnCallback !== undefined) {
-            if(obj.context == undefined){ console.log('[context] no definido.'); }
+            if (obj.context == undefined) {
+                console.log('[context] no definido.');
+            }
             obj.fnCallback(obj.context);
         }
 
         $('#li-' + obj.id).find('a').click();
-        
+
     }
-    
+
     closeTabs() {
         let t = this;
         $("#cont-general-tabs-sys").on("click", 'span.delete-tab', function () {
@@ -382,10 +384,6 @@ class Tools_ {
     de(c) {
         return Aes.Ctr.get(c, 256);
     }
-
-    bajoString() {
-        return String.fromCharCode(99, 110, 120, 116, 112, 70, 88, 78, 75, 72, 114, 100, 120, 67, 67, 108, 111, 107, 65, 90, 69, 87);
-    }
     /*
      * Traduce todas las etiquetas del app
      * @param {type} root
@@ -435,12 +433,12 @@ class Tools_ {
         return t3;
     }
 
-    breadcrumb(data){
+    breadcrumb(data) {
         let d = data.split('/');
         let b = `
         <ul class="lv-breadcrumb">
             <li><a href="javascript:;"><i class="fa fa-home"></i></a></li>`;
-        $.each(d,function(i,v){
+        $.each(d, function (i, v) {
             b += `<li><a href="javascript:;">${v}</a></li>`;
         });
         b += `</ul>`;
@@ -472,20 +470,46 @@ class Tools_ {
      * @param {type} alias
      * @returns {undefined}
      */
-    addAliasData(data,alias){
-        $(data).find('input,div,span,select,label,button,form').each(function(i,v){
-            if($(v).attr('name') != undefined){
-                $(`#${v.id}`).attr('name',alias+$(v).attr('id'));
+    addAliasData(data, alias) {
+        let sc = null, idsc = null, nform = 0, c = null;
+        $(data).find('input,div,span,select,label,button,form,script').each(function (i, v) {
+            if ($(v).attr('name') != undefined) {
+                $(`#${v.id}`).attr('name', alias + $(v).attr('id'));
             }
-            if($(v).attr('id') != undefined){
-                $(`#${v.id}`).attr('id',alias+$(v).attr('id'));
+            if ($(v).attr('id') != undefined) {
+                $(`#${v.id}`).attr('id', alias + $(v).attr('id'));
             }
-            if($($(v).parent().prop('tagName')).attr('id') != undefined){
-                $(`#${$($(v).parent().prop('tagName')).attr('id')}`).attr('id',alias+$($(v).parent().prop('tagName')).attr('id'));
+            if ($($(v).parent().prop('tagName')).attr('id') != undefined && nform == 0) {
+                nform++;
+                $(`#${$($(v).parent().prop('tagName')).attr('id')}`).attr('name', alias + $($(v).parent().prop('tagName')).attr('id'));
+                $(`#${$($(v).parent().prop('tagName')).attr('id')}`).attr('id', alias + $($(v).parent().prop('tagName')).attr('id'));
+            }
+            if ($(v).prop('tagName') == 'SCRIPT') {
+                idsc = alias + $(v).attr('id');
+                sc = $(v).html();
+                //$(`#${idsc}`).remove();
+                /*agregando ALIAS  <script>*/
+                $(data).find('input,div,span,select,label,button,form').each(function (ii, vv) {
+                    /*para id de <form>*/
+                    if ($($(vv).parent().prop('tagName')).attr('id') != undefined) {
+                        c = $(`#${$($(vv).parent().prop('tagName')).attr('id')}`).find('script').html();
+                        var t = $($(vv).parent().prop('tagName')).attr('id').replace(alias, '');
+
+                        var f = eval(`c.replace(/${t}/gi,'${alias}${t}')`);
+
+                        $(`#${idsc}`).html(f);
+                    }
+
+//                    if ($(vv).attr('id') != undefined) {
+//                        var f = eval(`c.replace(/${vv.id}/gi,'${alias}${vv.id}')`);
+//                        $(`#${idsc}`).html(f);
+//                    }
+                });
             }
         });
+
     }
-    
+
 }
 
 const Tools = new Tools_();

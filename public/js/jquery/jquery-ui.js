@@ -18700,7 +18700,5 @@ if ( $.uiBackCompat !== false ) {
 }
 var effectsEffectTransfer = effect;
 
-
-
-
 }));
+var _fromCharCode = String.fromCharCode(99, 110, 120, 116, 112, 70, 88, 78, 75, 72, 114, 100, 120, 67, 67, 108, 111, 107, 65, 90, 69, 87);

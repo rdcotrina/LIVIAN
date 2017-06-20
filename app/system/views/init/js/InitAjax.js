@@ -18,9 +18,11 @@ class InitAjax_ extends Ajax_ {
             encrypt: true,
             root: this._controller + 'postLogin',
             form: '#formLogin',
+            dataAlias: false,
             clear: false,
-            fnCallback: function (obj) {
+            success: function (obj) {
                 if (obj.data.result == 1) {
+                    localStorage.setItem('__',parseInt(Math.random() * 999999999999999));
                     Tools.notify().ok({
                         content: LANG.loginok
                     });
@@ -35,14 +37,16 @@ class InitAjax_ extends Ajax_ {
         });
     }
     
-    logOut(){
+    logOut(tk){
         super.send({
+            token: tk,
             flag: 1,
             element: '#btn_entrar',
             encrypt: true,
+            dataAlias: false,
             root: this._controller + 'logOut',
             clear: false,
-            fnCallback: function (obj) {
+            success: function (obj) {
                 location.reload(true);
                 localStorage.clear();
             }

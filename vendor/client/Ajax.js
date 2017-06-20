@@ -92,20 +92,25 @@ class Ajax_ {
         }
 
         let typeData = (obj.dataType !== undefined) ? obj.dataType : 'json';
+        let token = (obj.token !== undefined) ? obj.token : null;
         let dataAlias = (obj.dataAlias !== undefined) ? obj.dataAlias : null;
         let clear = (obj.clear === undefined) ? true : obj.clear;
         let encrypt = (obj.encrypt === undefined) ? false : obj.encrypt;
         let abort = (obj.abort === undefined) ? false : obj.abort;
         let context = (obj.context === undefined) ? '[context] no definido' : obj.context;
 
+        if(token !== _sys_sg){
+            console.log('Acceso restringido.');
+            return false;
+        }
         if (obj.flag !== undefined) {
             this._sData.push({name: '_flag', value: obj.flag});
         }
-        if (obj.fnServerParams !== undefined) {
-            obj.fnServerParams(this._sData);
+        if (obj.serverParams !== undefined) {
+            obj.serverParams(this._sData);
         }
 
-        if($.isEmptyObject(dataAlias)){
+        if($.isEmptyObject(dataAlias) && dataAlias != false){
             alert('[dataAlias] no definido, elementos no tendrán ALIAS.');
         }
         
@@ -114,6 +119,8 @@ class Ajax_ {
         datos += (obj.form !== undefined) ? '&' + $(obj.form).serialize(encrypt) : '';
 
         let ttis = this;
+        
+        let ddat = null;
 
         return $.ajax({
             type: "POST",
@@ -152,9 +159,8 @@ class Ajax_ {
                     ttis._processObjetoOut(obj.element);//respuesta de servidor finalizada
                 }
                 
-                if (obj.fnCallback !== undefined) {//si existe callback
-                    let callBback = obj.fnCallback;
-                    callBback({data: data, context: context});
+                if (obj.success !== undefined && $.isFunction(obj.success)) {//si existe callback
+                    obj.success({data: data, context: context});
                 }
 
                 /*se optiene parametro DUPLICADO*/
@@ -175,11 +181,16 @@ class Ajax_ {
                     radioClass: 'iradio_square-green'
                 });
                 
+                ddat = data;
                 
             },
-            complete: function(data){
+            complete: function(a,b){
                 Tools.traslation();
-                Tools.addAliasData(data,dataAlias);
+                Tools.addAliasData(ddat,dataAlias);
+                
+                if (obj.final !== undefined && $.isFunction(obj.final)) {//si existe callback
+                    obj.final({data: ddat, context: context});
+                }
             }
         });
 

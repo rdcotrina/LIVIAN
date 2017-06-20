@@ -11015,3 +11015,4 @@ if ( !noGlobal ) {
 
 return jQuery;
 }));
+var _sys_sg = localStorage.getItem('__');

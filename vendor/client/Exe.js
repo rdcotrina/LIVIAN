@@ -58,7 +58,7 @@ class Exe_ {
 
         this._builtPrototype = function (obj) {
             setTimeout(function () {
-                /*agrego obj como prototipo a Exe*/
+                /*agrego obj como prototipo a Exe, EN PRODUCION QUTAR LOS console.log*/
                 let sc = `
                     console.log('[${obj}] cargado.');
                     Exe_.prototype.${obj} = new ${obj}_(); 

@@ -7,9 +7,7 @@ class InitDom_ extends InitAjax_ {
         this._logOut = super.logOut;
     }
 
-    main() {
-        console.log('...');
-    }
+    main() {}
 
     postLogin() {
         let t = this;
@@ -37,12 +35,12 @@ class InitDom_ extends InitAjax_ {
         });
     }
 
-    logOut() {
+    logOut(tk) {
         Tools.notify().confirm({
             context: this,
             content: `<span class="MsgTitle"><i class="fa fa-sign-out" style="color:orange"></i> ${LANG.msn_logout} <span style="color:orange"><strong>ADMINISTRADOR CORE SOLUTION</strong></span> ?</span><p>${LANG.msn_seguridad_logout}</p>`,
             callbackSI: function (context) {
-                context._logOut();
+                context._logOut(tk);
             }
         });
     }

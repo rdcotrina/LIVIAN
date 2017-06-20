@@ -1153,13 +1153,14 @@ if (typeof jQuery === 'undefined') {
     }
 
     Modal.prototype.escape = function () {
-        if (this.isShown && this.options.keyboard) {
+        /*RDCC no es necesario ocultar el modal con ESC*/
+        /*if (this.isShown && this.options.keyboard) {
             this.$element.on('keydown.dismiss.bs.modal', $.proxy(function (e) {
                 e.which == 27 && this.hide()
             }, this))
         } else if (!this.isShown) {
             this.$element.off('keydown.dismiss.bs.modal')
-        }
+        }*/
     }
 
     Modal.prototype.resize = function () {
@@ -1198,7 +1199,8 @@ if (typeof jQuery === 'undefined') {
                     .appendTo(this.$body)
                     .attr('id',this.$element.attr('id')+'_modalFormBoot')
 
-            this.$element.on('click.dismiss.bs.modal', $.proxy(function (e) {
+            /*RDCC no e snecesario ocultar el modal*/
+            /*this.$element.on('click.dismiss.bs.modal', $.proxy(function (e) {
                 if (this.ignoreBackdropClick) {
                     this.ignoreBackdropClick = false
                     return
@@ -1208,7 +1210,7 @@ if (typeof jQuery === 'undefined') {
                 this.options.backdrop == 'static'
                         ? this.$element[0].focus()
                         : this.hide()
-            }, this))
+            }, this))*/
 
             if (doAnimate)
                 this.$backdrop[0].offsetWidth // force reflow
