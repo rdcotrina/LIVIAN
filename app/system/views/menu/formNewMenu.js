@@ -18,7 +18,7 @@
                     <div class="col-lg-offset-2 col-lg-10">
                         <div class="i-checks">
                             <label> 
-                                <input type="checkbox" id="chk_activo" name="chk_activo" checked/>
+                                <input type="checkbox" id="chk_activo" name="chk_activo" checked value="1"/>
                                 <i></i> <span class="tr-language" data-tr="chk_activo"></span> 
                             </label>
                         </div>
@@ -32,7 +32,7 @@
             </div>
         </div>
     </div>
-    <script id="sc_formNewMenu">
+    <js id="js_formNewMenu">
         $("#formNewMenu").validate({
             rules: {
                 txt_descripcion: {
@@ -44,8 +44,8 @@
                 error.insertAfter(element.parent());
             },
             submitHandler: function () {
-                Exe.MenuDom.postNewMenu();
+                Exe.MenuDom.postNewMenu(__PK__);
             }
         });
-    </script>
+    </js>
 </form>

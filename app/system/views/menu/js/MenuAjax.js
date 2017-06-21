@@ -33,14 +33,14 @@ class MenuAjax_ extends Ajax_ {
         });
     }
     
-    postNewMenu(){
+    postNewMenu(tk){
         super.send({
-            token: _sys_sg,
+            token: tk,
             dataAlias: this._alias,
             element: `#BCTXT_${this._alias}GRB`,
             context: this,
             root: `${this._controller}postNewMenu`,
-            form: `${this._alias}formNewMenu`,
+            form: `#${this._alias}formNewMenu`,
             dataType: 'json',
             success: function (obj) {
                 $(`#${this._alias}formNewMenu`).modal('hide');

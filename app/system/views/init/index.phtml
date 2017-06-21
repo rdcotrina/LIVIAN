@@ -50,7 +50,7 @@
                             </ul>
                             <script>
                                 $('.arol').click(function () {
-                                    <?php echo $ocr ?>
+<?php echo $ocr ?>
                                 });
                             </script>
                         </div>
@@ -179,23 +179,34 @@
         </div>
 
         <!-- END #MAIN CONTENT -->
-        
+
         <div id="process-general" class="ibox-content sk-loading" onclick="$(this).fadeOut()">
             <div class="sk-spinner sk-spinner-chasing-dots">
                 <div class="sk-dot1"></div>
                 <div class="sk-dot2"></div>
             </div>
         </div> 
-        
+
     </div>
 
 </div>
 
 <script>
-    $('.lv-out').click(function(){
+    $('.lv-out').click(function () {
         Exe.InitDom.logOut(_sys_sg);
     });
-    $('.lv-cp').click(function(){
+    $('.lv-cp').click(function () {
         alert('cambia pass');
     });
+
+//var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+//(function(){
+//var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+//s1.async=true;
+//s1.src='https://embed.tawk.to/594aa3e7e9c6d324a4736a15/default';
+//s1.charset='UTF-8';
+//s1.setAttribute('crossorigin','*');
+//s0.parentNode.insertBefore(s1,s0);
+//})();
+
 </script>

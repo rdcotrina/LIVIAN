@@ -99,7 +99,7 @@ class Ajax_ {
         let abort = (obj.abort === undefined) ? false : obj.abort;
         let context = (obj.context === undefined) ? '[context] no definido' : obj.context;
 
-        if(token !== _sys_sg){
+        if(parseInt(token) !== parseInt(_sys_sg)){
             console.log('Acceso restringido.');
             return false;
         }
@@ -118,9 +118,16 @@ class Ajax_ {
         let datos = this._serialize();
         datos += (obj.form !== undefined) ? '&' + $(obj.form).serialize(encrypt) : '';
         datos += `&_alias=${dataAlias}`;
-
-        let ttis = this;
         
+        /*obteniendo etiquetas para alertas de los filters.php*/
+        if(obj.form !== undefined){
+            let ev = null;
+            $(obj.form).find('.tr-language').each(function(i,v){
+                ev = `language_${localStorage.getItem('sys_lang')}.labels[ '${$(v).data('tr')}' ]`;
+                datos += `&${$(v).data('tr')}=${eval(ev)}`;
+            });
+        }
+
         let ddat = null;
 
         return $.ajax({
@@ -129,6 +136,7 @@ class Ajax_ {
             url: obj.root,
             dataType: typeData,
             cache: false,
+            context: this,
             beforeSend: function (data2) {
                 if (obj.abort) {
                     if (httpR) {
@@ -157,7 +165,7 @@ class Ajax_ {
 
                 /*oculta img cargando de boton*/
                 if (obj.element !== undefined) {
-                    ttis._processObjetoOut(obj.element);//respuesta de servidor finalizada
+                    this._processObjetoOut(obj.element);//respuesta de servidor finalizada
                 }
                 
                 if (obj.success !== undefined && $.isFunction(obj.success)) {//si existe callback
@@ -169,11 +177,11 @@ class Ajax_ {
 
                 /*limpia el formulario*/
                 if (clear && parseInt(d) !== 1 && er && obj.form !== undefined) {
-                    ttis._clear(obj.form);
+                    this._clear(obj.form);
                 }
                 /*se desactiva gif loading*/
                 if (obj.gifProcess !== undefined && obj.gifProcess !== false) {
-                    ttis._processOut();//respuesta de servidor finalizada
+                    this._processOut();//respuesta de servidor finalizada
                 }
 
                 /*efecto para los checkbox*/

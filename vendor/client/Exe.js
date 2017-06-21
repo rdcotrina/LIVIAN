@@ -8,6 +8,7 @@ class Exe_ {
         this._title = null;
         this._rooot = null;
         this._alias = null;
+        this._entorno = 'D';               /*D: DESARROLLO, P:PRODUCCION*/
         
         this._esxtraxtFile = function(requires){
             let pos = requires.lastIndexOf('/') + 1;
@@ -57,16 +58,22 @@ class Exe_ {
         };
 
         this._builtPrototype = function (obj) {
+            let t = this;
             setTimeout(function () {
                 /*agrego obj como prototipo a Exe, EN PRODUCION QUTAR LOS console.log*/
-                let sc = `
-                    console.log('[${obj}] cargado.');
-                    Exe_.prototype.${obj} = new ${obj}_(); 
-                    console.log('[${obj}] instanciado.');
-                    Exe.${obj}.main();
-                    console.log('[Exe.${obj}.main()] ejecutado.');
-                `;
-
+                let sc = ``;
+                if(t._entorno == 'D'){
+                    sc += `console.log('[${obj}] cargado.');`;
+                }
+                sc += `Exe_.prototype.${obj} = new ${obj}_();`;
+                if(t._entorno == 'D'){
+                    sc += `console.log('[${obj}] instanciado.');`;
+                }
+                sc += `Exe.${obj}.main();`;
+                if(t._entorno == 'D'){
+                    sc += `console.log('[Exe.${obj}.main()] ejecutado.');`;
+                }
+                
                 eval(sc);
             }, 400); /*se le da un tiempo de 400 milisegundos porque en mozilla generaba error con el Dom_.js*/
         };

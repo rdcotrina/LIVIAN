@@ -472,7 +472,7 @@ class Tools_ {
      */
     addAliasData(data, alias) {
         let sc = null, idsc = null, nform = 0, c = null, ee = null;
-        $(data).find('input,div,span,select,label,button,form,script').each(function (i, v) {
+        $(data).find('input,div,span,select,label,button,form,js').each(function (i, v) {
             if ($(v).attr('name') != undefined) {
                 $(`#${v.id}`).attr('name', alias + $(v).attr('id'));
             }
@@ -484,40 +484,31 @@ class Tools_ {
                 $(`#${$($(v).parent().prop('tagName')).attr('id')}`).attr('name', alias + $($(v).parent().prop('tagName')).attr('id'));
                 $(`#${$($(v).parent().prop('tagName')).attr('id')}`).attr('id', alias + $($(v).parent().prop('tagName')).attr('id'));
             }
-            if ($(v).prop('tagName') == 'SCRIPT') {
+            if ($(v).prop('tagName') == 'JS') {
                 idsc = alias + $(v).attr('id');
                 sc = $(v).html();
               
-                /*agregando ALIAS  <script>*/
+                /*agregando ALIAS  <js>*/
                 $(data).find('input,div,span,select,label,button,form').each(function (ii, vv) {
                     /*para id de <form>*/
                     if ($($(vv).parent().prop('tagName')).attr('id') != undefined) {
-                        c = $(`#${$($(vv).parent().prop('tagName')).attr('id')}`).find('script').html();
+                        c = $(`#${$($(vv).parent().prop('tagName')).attr('id')}`).find('js').html();
                         var t = $($(vv).parent().prop('tagName')).attr('id').replace(alias, '');
-
                         ee = eval(`c.replace(/${t}/gi,'${alias}${t}')`);
-
                         $(`#${idsc}`).html(ee);
                     }
-
                     if ($(vv).attr('id') != undefined) {
                         c = $(`#${idsc}`).html();
                         ee = eval(`c.replace(/${vv.id}/gi,'${alias}${vv.id}')`);
-                        
-                        /*console.log(ee);
-                        ee = eval(`c.replace(/__/g,'(ww)')`);
-                        console.log(ee);*/
-
+                        ee = eval(`ee.replace(/__PK__/gi,${_sys_sg})`);
                         $(`#${idsc}`).html(ee);
-                        
-                        
-                        $(`#${$(`#${idsc}`).parent('form').attr('id')}`).append(`<script>Tools.removeValidate('#${$(`#${idsc}`).parent('form').attr('id')}');${$(`#${idsc}`).html()}</script>`);
                     }
                 });
-                $(`#${$(`#${idsc}`).parent('form').attr('id')}`).find('script').remove();
             }
         });
-
+        $(`#${$(`#${idsc}`).parent('form').attr('id')}`).append(`<script>${$(`#${idsc}`).html()}</script>`);
+        $(`#${$(`#${idsc}`).parent('form').attr('id')}`).find('js').remove();
+        $(`#${$(`#${idsc}`).parent('form').attr('id')}`).find('script').remove();
     }
 
 }
