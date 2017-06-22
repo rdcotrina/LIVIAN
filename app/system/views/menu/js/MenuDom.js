@@ -4,7 +4,6 @@ class MenuDom_ extends MenuAjax_ {
 
     constructor() {
         super();
-        this._index = super.index;
         this._alias = Exe.getAlias();
         this._container = `#${this._alias}_CONTAINER`;
         this._divmain = `main_${this._alias}`;
@@ -46,6 +45,8 @@ class MenuDom_ extends MenuAjax_ {
                 let dmain = $('<div />');
                 dmain.attr('id', context._divmain);
                 $(context._container).append(dmain);
+                
+                context.renderData();
             }
         });
     }
@@ -64,6 +65,13 @@ class MenuDom_ extends MenuAjax_ {
     
     postNewMenu(tk){
         super.postNewMenu(tk);
+    }
+    
+    renderData(){
+        var data = super.getData(_tk_);
+        data.done(function(rows){
+            console.log(rows)
+        });
     }
     
 }

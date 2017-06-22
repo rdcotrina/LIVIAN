@@ -407,7 +407,7 @@ class Tools_ {
                 elems[x].placeholder = eval(ev);
             }
 
-            LANG = eval(`language_${lang}.etiquet`); /*para los alertas*/
+            LANG = eval(`language_${lang}.msn`); /*para los alertas*/
             localStorage.setItem('sys_lang', lang);
         });
     }

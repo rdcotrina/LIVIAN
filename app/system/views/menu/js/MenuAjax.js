@@ -50,5 +50,15 @@ class MenuAjax_ extends Ajax_ {
             }
         });
     }
+    
+    getData(tk){
+        return super.send({
+            token: tk,
+            dataAlias: this._alias,
+            context: this,
+            root: `${this._controller}getData`,
+            dataType: 'json'
+        });
+    }
 
 }

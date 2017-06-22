@@ -13,6 +13,8 @@ try {
     \Vendor\Registry::addClass('Request','\\Vendor\\Request');
     \Vendor\Registry::addClass('View','\\Vendor\\View');
     \Vendor\Registry::addClass('Tools','\\Vendor\\Tools');
+    \Vendor\Registry::addClass('Aes', '\\Libs\\Aes');
+    \Vendor\Registry::addClass('AesCtr', '\\Libs\\AesCtr');
     
     Obj()->Vendor->Session->run();
     Obj()->Vendor->Bootstrap->run();

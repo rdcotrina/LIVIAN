@@ -190,11 +190,11 @@ final class Tools {
                         /* se recorre fields para le encriptacion */
                         foreach ($f as $val) {
                             if ($val == $key && !is_null($fields)) {/* se envio campos a envriptar */
-                                $newvalue = Obj()->Aes->Libs->en($value);
+                                $newvalue = Obj()->Libs->Aes->en($value);
                             }
                         }
                     } else {/* si no se envia fields, se encripta toda la data */
-                        $newvalue = Obj()->Aes->Libs->en($value);
+                        $newvalue = Obj()->Libs->Aes->en($value);
                     }
 
 

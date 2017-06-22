@@ -170,11 +170,11 @@ class Aes {
     array(0x36, 0x00, 0x00, 0x00) ); 
   
     public static function de($data){
-        return AesCtr::decrypt($data, APP_KEY, 256);
+        return Obj()->Libs->AesCtr->decrypt($data, APP_KEY, 256);
     }
 
     public static function en($data){
-        return AesCtr::encrypt($data, APP_KEY, 256);
+        return Obj()->Libs->AesCtr->encrypt($data, APP_KEY, 256);
     }
     
     /*cifrado se select all*/
@@ -182,7 +182,7 @@ class Aes {
         $len = count($dataArr) - 1;
         for($i=$len;$i >= 0;$i--){
             foreach ($dataArr[$i] as $key=>$value){
-                $dataArr[$i][$key] = AesCtr::en($value);
+                $dataArr[$i][$key] = Obj()->Libs->Aes->en($value);
             }
         }
         return $dataArr;
@@ -191,7 +191,7 @@ class Aes {
     /*cifrado se select limit 1*/
     public function enOneArray($dataArr){
         foreach ($dataArr as $key=>$value){
-            $dataArr[$key] = AesCtr::en($value);
+            $dataArr[$key] = Obj()->Libs->Aes->en($value);
         }
         return $dataArr;
     }

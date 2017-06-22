@@ -360,9 +360,9 @@ class Validate {
      */
     private function lesstimeto($element,$regla,$params) {
         $date1 = new DateTime($this->_form->$element);
-        $date2 = new DateTime(Obj()->Get->getPost($this->_alias.$params));
+        $date2 = new DateTime($this->_form->$params);
 
-        if($date1 < $date2 && !empty(Obj()->Get->getPost($this->_alias.$params))){
+        if($date1 < $date2 && !empty($this->_form->$params)){
             return true;
         }else{
             $this->addMsn($element,$regla,$params);
@@ -375,7 +375,7 @@ class Validate {
      */
     private function greatertimeto($element,$regla,$params) {
         $date1 = new DateTime($this->_form->$element);
-        $date2 = new DateTime(Obj()->Get->getPost($this->_alias.$params));
+        $date2 = new DateTime($this->_form->$params);
 
         if($date1 > $date2){
             return true;
@@ -390,9 +390,9 @@ class Validate {
      */
     private function lessdateto($element,$regla,$params) {
         $date1 = new DateTime($this->_form->$element);
-        $date2 = new DateTime(Obj()->Get->getPost($this->_alias.$params));
+        $date2 = new DateTime($this->_form->$params);
 
-        if($date1 <= $date2 && !empty(Obj()->Get->getPost($this->_alias.$params))){
+        if($date1 <= $date2 && !empty($this->_form->$params)){
             return true;
         }else{
             $this->addMsn($element,$regla,$params);
@@ -405,7 +405,7 @@ class Validate {
      */
     private function greaterdateto($element,$regla,$params) {
         $date1 = new DateTime($this->_form->$element);
-        $date2 = new DateTime(Obj()->Get->getPost($this->_alias.$params));
+        $date2 = new DateTime($this->_form->$params);
 
         if($date1 >= $date2){
             return true;

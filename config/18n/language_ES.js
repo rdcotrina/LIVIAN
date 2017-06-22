@@ -14,7 +14,7 @@ var language_ES = {
         chk_activo: 'Activo',
         btn_close: 'Cerrar'
     },
-    etiquet: { /*mensajes ALERT*/
+    msn: { /*mensajes ALERT*/
         loginok: 'Ingreso correctamente.',
         loginfail: 'Error con el usuario o contraseña.',
         msn_sys: 'Aviso del sistema:',

@@ -41,6 +41,13 @@ $NP->Vendor = function(){
     return Obj::run('Vendor');
 };
 
+/*
+ * Agregando metodo para el namescpace LIBS
+ */
+$NP->Libs = function(){
+    return Obj::run('Libs');
+};
+
 /*funcion global que devuelve variable global que contiene la CLASE que retorna los OBJETOS por NAMESPACE*/
 function Obj(){
     return $GLOBALS['NP'];

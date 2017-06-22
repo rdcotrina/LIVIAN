@@ -34,4 +34,13 @@ class MenuController extends \System\Models\MenuModel {
         echo json_encode($data);
     }
 
+    public function getData() {
+        $data = Obj()->Vendor->Tools->encriptArray([
+            "data" => $this->dataMenu(),
+            "fields" => ["id_menu"]
+        ]);
+
+        echo json_encode($data);
+    }
+
 }

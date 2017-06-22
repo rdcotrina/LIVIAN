@@ -19,7 +19,7 @@ class InitModel extends \Vendor\DataBase{
             $pass = $this->_form->txtClave.APP_PASS_KEY;
         }
         
-        $query = "CALL sp_sisLogin (:flag,:usuario,:clave) ; ";
+        $query = "CALL sp_sysLogin (:flag,:usuario,:clave) ; ";
         $parms = [
             ':flag' => $flag,
             ':usuario' => $user,
