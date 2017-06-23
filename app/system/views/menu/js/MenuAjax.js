@@ -20,11 +20,8 @@ class MenuAjax_ extends Ajax_ {
             root: `${this._root}formNewMenu.js`,
             dataAlias: context._alias,
             dataType: 'text',
-            serverParams: function (sData) {
-                sData.push({name: 'divmain', value: context._divmain});
-            },
             success: function (obj) {
-                $(`#${context._divmain}`).append(obj.data);
+                $('#cont-modal-sys').html(obj.data);
                 $('#formNewMenu').modal('show');
             },
             final: function(obj){/*se ejecuta una vez que se cargo el HTML en success*/

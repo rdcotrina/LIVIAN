@@ -19,7 +19,7 @@ class InitController extends \System\Models\InitModel {
         if (Obj()->Vendor->Session->get('sys_isLogin')) {
             /* obteniendo roles de usuario */
             $this->_getRolesUser();
-            
+
             /* obteniendo el menu del usuario */
             $this->_getMenuUser();
 
@@ -40,6 +40,10 @@ class InitController extends \System\Models\InitModel {
             Obj()->Vendor->Session->set('sys_nameUser', $data['nombre_completo']);
             Obj()->Vendor->Session->set('sys_idUsuario', $data['id_usuario']);
             Obj()->Vendor->Session->set('sys_idPersona', $data['id_persona']);
+            Obj()->Vendor->Session->set('sys_navegador', $_SERVER['HTTP_USER_AGENT']);
+            Obj()->Vendor->Session->set('sys_ipPublica', $_SERVER['REMOTE_ADDR']);
+            Obj()->Vendor->Session->set('sys_ipLocal', $this->_form->_ipLocal);
+            Obj()->Vendor->Session->set('sys_hostName', gethostbyaddr($_SERVER['REMOTE_ADDR']));
 
             /* servira para javascript */
             Obj()->Vendor->Session->set('sys_idUsuarioEncrypt', Obj()->Vendor->Tools->encrypt($data['id_usuario']));

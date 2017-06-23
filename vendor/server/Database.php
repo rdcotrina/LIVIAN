@@ -73,6 +73,28 @@ class DataBase extends \Vendor\DataBaseProvider {
             return $m;
         }
     }
+    
+    final public function queryRow($obj = []) {
+        $query = "CALL sp_appQuery (:module,:flag,:param);";
+        $parms = [
+            ':module' => $obj['module'],
+            ':flag' => $obj['flag'],
+            ':param' => (isset($obj['param']))?$obj['param']:''
+        ];
+
+        return $this->getRow($query, $parms);   /* devuelve un registro */
+    }
+
+    final public function queryRows($obj = []) {
+        $query = "CALL sp_appQuery (:module,:flag,:param);";
+        $parms = [
+            ':module' => $obj['module'],
+            ':flag' => $obj['flag'],
+            ':param' => (isset($obj['param']))?$obj['param']:''
+        ];
+
+        return $this->getRows($query, $parms);  /* devuelve varios registros */
+    }
 
     private function messageError($code) {
         $msg = '';

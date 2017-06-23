@@ -1,0 +1,7 @@
+<?php
+
+-- 1: se realizan solo SELECT a las tablas          sp_queryTables 
+-- 2: consultas para el modulo de CONFIGURACION     sp_queryConfiguracion
+    
+localStorage.getItem('sys_idLocal') id local de la PC del usuario
+localStorage.getItem('sys_root')    ruta del sistema http://

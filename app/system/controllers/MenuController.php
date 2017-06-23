@@ -36,7 +36,7 @@ class MenuController extends \System\Models\MenuModel {
 
     public function getData() {
         $data = Obj()->Vendor->Tools->encriptArray([
-            "data" => $this->dataMenu(),
+            "data" => $this->queryRows(['module'=>2,'flag'=>1]),
             "fields" => ["id_menu"]
         ]);
 

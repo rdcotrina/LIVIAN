@@ -17,6 +17,9 @@
         
         Exe.require("<?php echo BASE_URL; ?>vendor/client/Tools",function(){
             Tools.traslation();
+            Tools.getUserIP(function(ip){
+                localStorage.setItem('sys_idLocal',ip);
+            });
         });
         Exe.require("<?php echo BASE_URL; ?>libs/Aes/js/aes",function(){
             Exe.require("<?php echo BASE_URL; ?>libs/Aes/js/aesctr");

@@ -171,6 +171,8 @@ class Exe_ {
                 this._requireArray(requires);
                 break;
         }
+       
+        return this;
     }
     
     getTitle(){
@@ -183,6 +185,10 @@ class Exe_ {
     
     getAlias(){
         return this._alias;
+    }
+    
+    done(callback){
+        callback();
     }
 
 }

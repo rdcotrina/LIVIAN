@@ -22,6 +22,9 @@ class InitAjax_ extends Ajax_ {
             form: '#formLogin',
             dataAlias: false,
             clear: false,
+            serverParams: function(sData){
+                sData.push({name: '_ipLocal', value: localStorage.getItem('sys_idLocal')});
+            },
             success: function (obj) {
                 if (obj.data.result == 1) {
                     localStorage.setItem('__',parseInt(Math.random() * 999999999999999));

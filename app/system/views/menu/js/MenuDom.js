@@ -4,9 +4,9 @@ class MenuDom_ extends MenuAjax_ {
 
     constructor() {
         super();
-        this._alias = Exe.getAlias();
-        this._container = `#${this._alias}_CONTAINER`;
-        this._divmain = `main_${this._alias}`;
+        this._alias = Exe.getAlias();                       /*alias que se agregara a cada ID y NAME del TAB*/
+        this._container = `#${this._alias}_CONTAINER`;      /*<div> del TAB*/
+        this._divmain = `main_${this._alias}`;              /*<div> principal del TAB que se encuenra dentro de _container*/
     }
 
     main() {
@@ -42,36 +42,49 @@ class MenuDom_ extends MenuAjax_ {
                     ]
                 });
 
+                /*<div> principal del TAB*/
                 let dmain = $('<div />');
                 dmain.attr('id', context._divmain);
+                dmain.addClass('text-center');
+                dmain.css({
+                    'margin-top': '10px'
+                });
+                dmain.html(Tools.spinner().main);
                 $(context._container).append(dmain);
-                
+
                 context.renderData();
             }
         });
     }
-    
-    formNewMenu(btn,tk) {
-        super.formNewMenu(btn,this,tk);
+
+    formNewMenu(btn, tk) {
+        super.formNewMenu(btn, this, tk);
     }
-    
-    addButtonsFormNew(){
+
+    addButtonsFormNew() {
         $.fn.getButtonsys({
             container: `#${this._alias}foot_btns`,
             keymnu: this._alias,
-            btns: [{keybtn: BTNSYS.GRB,type:'submit'}]
+            btns: [{keybtn: BTNSYS.GRB, type: 'submit'}]
         });
     }
-    
-    postNewMenu(tk){
+
+    postNewMenu(tk) {
         super.postNewMenu(tk);
     }
-    
-    renderData(){
+
+    renderData() {
         var data = super.getData(_tk_);
-        data.done(function(rows){
-            console.log(rows)
+
+        Exe.require(`${localStorage.getItem('sys_root')}app/system/views/menu/libs/menuTree`)
+        .done(function(){
+            data.done(function (rows) {
+                $(`#${this._divmain}`).menuTree({
+                    data: rows
+                });
+            });
         });
+
     }
-    
+
 }
