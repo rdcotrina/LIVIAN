@@ -188,7 +188,7 @@ class Exe_ {
     }
     
     done(callback){
-        callback();
+        setTimeout(function(){ callback(); },100);
     }
 
 }

@@ -35,12 +35,12 @@ class MenuController extends \System\Models\MenuModel {
     }
 
     public function getData() {
-        $data = Obj()->Vendor->Tools->encriptArray([
+        /*$data = Obj()->Vendor->Tools->encriptArray([
             "data" => $this->queryRows(['module'=>2,'flag'=>1]),
             "fields" => ["id_menu"]
-        ]);
+        ]);*/
 
-        echo json_encode($data);
+        echo json_encode($this->queryRows(['module'=>2,'flag'=>1]));
     }
 
 }
