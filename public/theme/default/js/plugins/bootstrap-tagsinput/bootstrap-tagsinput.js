@@ -3,7 +3,7 @@
 
   var defaultOptions = {
     tagClass: function(item) {
-      return 'label label-info';
+      return 'label label-warning';
     },
     itemValue: function(item) {
       return item ? item.toString() : item;
@@ -33,6 +33,7 @@
    * Constructor function
    */
   function TagsInput(element, options) {
+      
     this.itemsArray = [];
 
     this.$element = $(element);
@@ -443,6 +444,7 @@
             if (self.options.cancelConfirmKeysOnEmpty === false) {
                event.preventDefault();
             }
+            return false; /*RDCC 26-06-2017*/
          }
 
          // Reset internal input's size

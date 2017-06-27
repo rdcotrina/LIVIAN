@@ -12,7 +12,10 @@ var language_ES = {
         descripcion: 'Descripción',
         title_nmenu: 'Nuevo Menú',
         chk_activo: 'Activo',
-        btn_close: 'Cerrar'
+        btn_close: 'Cerrar',
+        alias: 'Alias',
+        ajax: 'Ajax',
+        hp_alias: 'Este alias se utilizará como prefijo para todos los elementos que serán contenidos en este menú. Se permiten 10 caracteres como máximo.'
     },
     msn: { /*mensajes ALERT*/
         loginok: 'Ingreso correctamente.',

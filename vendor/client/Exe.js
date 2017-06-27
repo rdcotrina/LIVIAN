@@ -136,7 +136,7 @@ class Exe_ {
                         obj._requireString(root.rootAjax);
                         setTimeout(function () {
                             obj._requireString(root.rootDom);
-                        }, 50);
+                        }, 100);
                     });
                 });
             } else {
@@ -146,7 +146,7 @@ class Exe_ {
                     obj._requireString(root.rootAjax);
                     setTimeout(function () {
                         obj._requireString(root.rootDom);
-                    }, 50);
+                    }, 100);
                 });
             }
         };

@@ -23,6 +23,12 @@ class MenuAjax_ extends Ajax_ {
             success: function (obj) {
                 $('#cont-modal-sys').html(obj.data);
                 $('#formNewMenu').modal('show');
+                $('.tagsinput').tagsinput();
+                
+                $('.modal-body').tooltip({
+                    selector: "[data-toggle=tooltip]",
+                    container: "body"
+                });
             },
             final: function(obj){/*se ejecuta una vez que se cargo el HTML en success*/
                 Exe.MenuDom.addButtonsFormNew();

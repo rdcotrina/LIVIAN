@@ -14,7 +14,7 @@
             /*=========================================METODOS PRIVADOS=========================================*/
             var _private = {
 
-                childrens: function (oSettings, idMenu, childrens) {
+                childrens: function (oSettings, idMenu) {
                     var t = {'data': [
                             {
                                 'text': 'xxx'
@@ -83,12 +83,18 @@
                             }
                         ]
                     }
-
+                    let childrens = '';
                     $.each(oSettings.data, function (i, v) {
                         if (idMenu == v.parent) {
-                            childrens += `{
-                                text: '${v.nmenu}'
-                            },`;
+                            childrens += `{`;
+                            if(v.evt_ajax != 'not'){
+                                childrens += `  icon: false,`;
+                            };
+                            childrens += `  text: '${v.nmenu}'`;
+                            if(v.evt_ajax == 'not'){
+                                childrens += `,  children: [${_private.childrens(oSettings, v.id_menu)}]`;
+                            }
+                            childrens += `},`;
                         }
                     });
                     childrens = childrens.substr(0,childrens.length - 1);
@@ -96,7 +102,7 @@
                 },
 
                 render: function (oSettings) {
-                    let cnt = null, that = this, childrens = '';
+                    let cnt = null, that = this;
                     $(that).html('');
                     $.each(oSettings.data, function (i, v) {
                         if (v.parent == 0) {
@@ -112,10 +118,10 @@
                                 </div>
                             </div>`;
                             $(that).append(cnt);
-//alert((`[${_private.childrens(oSettings, v.id_menu, childrens)}]`))
+
                             $(`#mnu_${i}`).jstree({
                                 core: {
-                                    data: eval(`[${_private.childrens(oSettings, v.id_menu, childrens)}]`)
+                                    data: eval(`[${_private.childrens(oSettings, v.id_menu)}]`)
                                 }
                             });
                         }
