@@ -29,13 +29,13 @@ class InitAjax_ extends Ajax_ {
                 if (obj.data.result == 1) {
                     localStorage.setItem('__',parseInt(Math.random() * 999999999999999));
                     Tools.notify().ok({
-                        content: LANG.loginok
+                        content: SYS_LANG_MSN.loginok
                     });
                     location.reload(true);
                 } else if (obj.data.result == 2) {
                     $("#main").effect('shake');
                     Tools.notify().error({
-                        content: LANG.loginfail
+                        content: SYS_LANG_MSN.loginfail
                     });
                 }
             }

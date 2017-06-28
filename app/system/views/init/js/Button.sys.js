@@ -3,6 +3,7 @@
 
     let BTNSYSCTXT = [];    /*los botones con texto*/
     let BTNSYSSTXT = [];    /*los botones sin texto*/
+    let BTNSLI     = [];    /*los botones en <li>*/
 
     $.fn.extend({
 
@@ -21,8 +22,11 @@
                     let b = `<button id="BCTXT_${v.alias + v.alias_btn}" type="button" class="${v.css}"><i class="${v.icono}"></i> ${Tools.traslate(v.nboton)}</button>`;
                     BTNSYSCTXT.push({keymnu: v.alias, keybtn: v.alias_btn, btn: b});
 
-                    b = `<button id="BSTXT_${v.alias + v.alias_btn}" type="button" class="${v.css}" title="${Tools.traslate(v.nboton)}" data-style="expand-right"><i class="${v.icono}"></i></button>`;
+                    b = `<button id="BSTXT_${v.alias + v.alias_btn}" type="button" class="${v.css}" title="${Tools.traslate(v.nboton)}"><i class="${v.icono}"></i></button>`;
                     BTNSYSSTXT.push({keymnu: v.alias, keybtn: v.alias_btn, btn: b});
+                    
+                    b = `<li><a id="BSLI_${v.alias + v.alias_btn}" href="javascript:;" style="color:#333"><i class="${v.icono}"></i> ${Tools.traslate(v.nboton)}</a></li>`;
+                    BTNSLI.push({keymnu: v.alias, keybtn: v.alias_btn, btn: b});
                 }
 
             };
@@ -52,7 +56,9 @@
                 keymnu: null, /*alias del menu*/
                 btns: [], /*botones*/
                 notext: false, /*indica que se retornara el boton con sus descripcion*/
-                container: null
+                container: null,
+                type: 'button',
+                aliasBtn: null  /*aplicable solo para <li>*/
             };
 
             var options = $.extend(defaults, opt);
@@ -63,7 +69,11 @@
                     let data = (oSettings.notext) ? BTNSYSSTXT : BTNSYSCTXT;
                     let idbtn = (oSettings.notext) ? 'BSTXT_' : 'BCTXT_';
                     let typebtn = null;
-
+                    
+                    /*verificar si se generara <li>*/
+                    data = (oSettings.type == 'li')?BTNSLI:data;
+                    idbtn = (oSettings.type == 'li')?'BSLI_':idbtn;
+                    
                     /*recorrido de botones requeridos*/
                     $.each(oSettings.btns, function (i, v) {
                         typebtn = (v.type == undefined) ? 'button' : v.type;
@@ -72,15 +82,25 @@
                         $.each(data, function (ii, vv) {
                             if (oSettings.keymnu == vv.keymnu && v.keybtn == vv.keybtn) {
                                 $(oSettings.container).append(vv.btn);
-
+                                
+                                idbtn = `${idbtn}${oSettings.keymnu}${vv.keybtn}`;
+                                
                                 /*agregar type de boton*/
-                                $(`#${idbtn}${oSettings.keymnu}${vv.keybtn}`).attr('type',typebtn);
+                                if(oSettings.type == 'button'){
+                                    $(`#${idbtn}`).attr('type',typebtn);
+                                }
+                                /*cambiando id de li*/
+                                if(oSettings.type == 'li'){
+                                    $(`#${idbtn}`).attr('id',idbtn+oSettings.aliasBtn);
+                                    idbtn = idbtn+oSettings.aliasBtn;
+                                    
+                                }
 
                                 /*recorrido de eventos*/
                                 $.each(v.evts, function (a, b) {
                                     $.each(b, function (x, y) {
-                                        eval(`
-                                            $('#${idbtn}${oSettings.keymnu}${vv.keybtn}').${x}(function(){
+                                        alert(`
+                                            $('#${idbtn}').${x}(function(){
                                                 ${y}(this,'${_sys_sg}');
                                             });
                                         `);

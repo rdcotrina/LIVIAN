@@ -5,6 +5,7 @@ class MenuAjax_ extends Ajax_ {
         super();
         this._controller = 'system/menu/';
         this._root = 'app/system/views/menu/';
+        this._parent = 0;
 
 //        this._fields = {
 //            usuario: $('#txtUser'),
@@ -13,7 +14,7 @@ class MenuAjax_ extends Ajax_ {
     }
 
     formNewMenu(btn, context, tk) {
-        super.send({
+        return super.send({
             token: tk,
             element: btn,
             context: this,
@@ -22,22 +23,16 @@ class MenuAjax_ extends Ajax_ {
             dataType: 'text',
             success: function (obj) {
                 $('#cont-modal-sys').html(obj.data);
-                $('#formNewMenu').modal('show');
-                $('.tagsinput').tagsinput();
-                
-                $('.modal-body').tooltip({
-                    selector: "[data-toggle=tooltip]",
-                    container: "body"
-                });
             },
-            final: function(obj){/*se ejecuta una vez que se cargo el HTML en success*/
-                Exe.MenuDom.addButtonsFormNew();
+            final: function (obj) {/*se ejecuta una vez que se cargo el HTML en success*/
+                context.addButtonsFormNew();
             }
         });
     }
-    
-    postNewMenu(tk){
-        super.send({
+
+    postNewMenu(tk) {
+        return super.send({
+            flag: 1,
             token: tk,
             dataAlias: this._alias,
             element: `#BCTXT_${this._alias}GRB`,
@@ -45,16 +40,13 @@ class MenuAjax_ extends Ajax_ {
             root: `${this._controller}postNewMenu`,
             form: `#${this._alias}formNewMenu`,
             dataType: 'json',
-            success: function (obj) {
-                $(`#${this._alias}formNewMenu`).modal('hide');
-            },
-            final: function(obj){
-                //Exe.MenuDom.addButtonsFormNew();
+            serverParams: function (sData, obj) {
+                sData.push({name: '_parent', value: obj.context._parent});
             }
         });
     }
-    
-    getData(tk){
+
+    getData(tk) {
         return super.send({
             token: tk,
             dataAlias: this._alias,

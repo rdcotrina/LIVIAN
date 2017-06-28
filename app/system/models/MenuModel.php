@@ -5,6 +5,7 @@ namespace System\Models;
 class MenuModel extends \Vendor\DataBase {
 
     protected $_form;
+    
     private $_usurio;
     private $_navegador;
     private $_ipPublica;
@@ -23,14 +24,23 @@ class MenuModel extends \Vendor\DataBase {
     }
 
     protected function mantenimiento() {
-
-        $query = "CALL sp_mnuMantenimiento (:flag,:usuario,:clave) ; ";
+        
+        $query = "CALL sp_mnuMantenimiento (:flag,:key,:parent,:nmenu,:alias,:js,:activo,:usuario,:ipPublica,:ipLocal,:navegador,:hostname) ; ";
         $parms = [
-            ':flag' => $flag,
-            ':usuario' => $user,
-            ':clave' => $pass
+            ':flag' => $this->_form->_flag,
+            ':key' => (isset($this->_form->_pkMenu))?$this->_form->_pkMenu:'',
+            ':parent' => $this->_form->_parent,
+            ':nmenu' => $this->_form->MNUtxt_descripcion,
+            ':alias' => $this->_form->MNUtxt_alias,
+            ':js' => $this->_form->MNUtxt_ajax,
+            ':activo' => $this->_form->MNUchk_activo,
+            ':usuario' => $this->_usurio,
+            ':ipPublica' => $this->_ipPublica,
+            ':ipLocal' => $this->_ipLocal,
+            ':navegador' => $this->_navegador,
+            ':hostname' => $this->_hostName
         ];
-
+       
         return $this->getRow($query, $parms);   /* devuelve un registro */
     }
 

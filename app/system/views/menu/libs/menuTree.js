@@ -15,89 +15,22 @@
             var _private = {
 
                 childrens: function (oSettings, idMenu) {
-                    var t = {'data': [
-                            {
-                                'text': 'xxx'
-                            },
-                            {
-                                'text': 'Resources',
-                                'children': [
-                                    {
-                                        'text': 'css',
-                                        'children': [
-                                            {
-                                                'text': 'animate.css'
-                                            },
-                                            {
-                                                'text': 'bootstrap.css'
-                                            },
-                                            {
-                                                'text': 'main.css'
-                                            },
-                                            {
-                                                'text': 'style.css'
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        'text': 'js',
-                                        'children': [
-                                            {
-                                                'text': 'bootstrap.js'
-                                            },
-                                            {
-                                                'text': 'inspinia.min.js'
-                                            },
-                                            {
-                                                'text': 'jquery.min.js'
-                                            },
-                                            {
-                                                'text': 'jsTree.min.js'
-                                            },
-                                            {
-                                                'text': 'custom.min.js'
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        'text': 'html',
-                                        'children': [
-                                            {
-                                                'text': 'layout.html'
-                                            },
-                                            {
-                                                'text': 'navigation.html'
-                                            },
-                                            {
-                                                'text': 'navbar.html'
-                                            },
-                                            {
-                                                'text': 'footer.html'
-                                            },
-                                            {
-                                                'text': 'sidebar.html'
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    }
                     let childrens = '';
                     $.each(oSettings.data, function (i, v) {
                         if (idMenu == v.parent) {
                             childrens += `{`;
-                            if(v.evt_ajax != 'not'){
+                            if (v.evt_ajax != 'not') {
                                 childrens += `  icon: false,`;
-                            };
+                            }
+                            ;
                             childrens += `  text: '${v.nmenu}'`;
-                            if(v.evt_ajax == 'not'){
+                            if (v.evt_ajax == 'not') {
                                 childrens += `,  children: [${_private.childrens(oSettings, v.id_menu)}]`;
                             }
                             childrens += `},`;
                         }
                     });
-                    childrens = childrens.substr(0,childrens.length - 1);
+                    childrens = childrens.substr(0, childrens.length - 1);
                     return childrens;
                 },
 
@@ -111,6 +44,14 @@
                                 <div class="panel panel-warning">
                                     <div class="panel-heading">
                                         <i class="fa fa-dedent"></i> ${v.nmenu}
+                                        <div class="pull-right">
+                                            <div class="btn-group">
+                                                <div class="btn-group">
+                                                    <button data-toggle="dropdown" class="btn btn-primary btn-xs dropdown-toggle" aria-expanded="false"><span class="caret"></span></button>
+                                                    <ul id="btns_${i}" class="dropdown-menu"></ul>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="panel-body">
                                         <div id="mnu_${i}" class="text-left">${Tools.spinner().main}</div>
@@ -123,6 +64,17 @@
                                 core: {
                                     data: eval(`[${_private.childrens(oSettings, v.id_menu)}]`)
                                 }
+                            });
+                            $.fn.getButtonsys({
+                                aliasBtn: i,
+                                container: `#btns_${i}`,
+                                keymnu: oSettings.alias,
+                                type: 'li',
+                                btns: [
+                                    {keybtn: BTNSYS.EDT, evts: [{click: 'Exe.MenuDom.formNewMenu'}]},
+                                    {keybtn: BTNSYS.NEW, evts: [{click: 'Exe.MenuDom.formNewMenu'}]},
+//                                    {keybtn: BTNSYS.DEL, evts: [{click: 'alert(12)'}]}
+                                ]
                             });
                         }
                     });

@@ -58,7 +58,13 @@ class MenuDom_ extends MenuAjax_ {
     }
 
     formNewMenu(btn, tk) {
-        super.formNewMenu(btn, this, tk);
+        super.formNewMenu(btn, this, tk).done(function () {
+            $('#formNewMenu').modal('show');
+            $('.tagsinput').tagsinput();
+            setTimeout(function () {
+                $('.bootstrap-tagsinput').addClass('col-lg-12');
+            }, 100);
+        });
     }
 
     addButtonsFormNew() {
@@ -70,20 +76,41 @@ class MenuDom_ extends MenuAjax_ {
     }
 
     postNewMenu(tk) {
-        super.postNewMenu(tk);
+        super.postNewMenu(tk).done(function (obj) {
+            if (obj.result == 1) {
+                Tools.notify().ok({
+                    content: SYS_LANG_MSN.proccess_ok
+                });
+                this.renderData();
+                Tools.closeModal(`#${this._alias}formNewMenu`);
+            } else if (obj.result == 2) {
+                Tools.notify().error({
+                    content: SYS_LANG_MSN.mnu.nmenu_exist
+                });
+            }else if (obj.result == 3) {
+                Tools.notify().error({
+                    content: SYS_LANG_MSN.mnu.alias_exist
+                });
+            }else if (obj.result == 4) {
+                Tools.notify().error({
+                    content: SYS_LANG_MSN.mnu.ajax_exist
+                });
+            }
+        });
     }
 
     renderData() {
         var data = super.getData(_tk_);
 
         Exe.require(`${localStorage.getItem('sys_root')}app/system/views/menu/libs/menuTree`)
-        .done(function(){
-            data.done(function (rows) {
-                $(`#${this._divmain}`).menuTree({
-                    data: rows
+                .done(function () {
+                    data.done(function (rows) {
+                        $(`#${this._divmain}`).menuTree({
+                            alias: this._alias,
+                            data: rows
+                        });
+                    });
                 });
-            });
-        });
 
     }
 

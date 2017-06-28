@@ -107,7 +107,7 @@ class Ajax_ {
             this._sData.push({name: '_flag', value: obj.flag});
         }
         if (obj.serverParams !== undefined) {
-            obj.serverParams(this._sData);
+            obj.serverParams(this._sData,obj);
         }
 
         if($.isEmptyObject(dataAlias) && dataAlias != false){
@@ -176,7 +176,7 @@ class Ajax_ {
                 let d = (data.length > 1) ? data[0].duplicado : data.duplicado;
 
                 /*limpia el formulario*/
-                if (clear && parseInt(d) !== 1 && er && obj.form !== undefined) {
+                if (clear && parseInt(d) === 0 && er && obj.form !== undefined) {
                     this._clear(obj.form);
                 }
                 /*se desactiva gif loading*/
@@ -201,6 +201,10 @@ class Ajax_ {
                 if (obj.final !== undefined && $.isFunction(obj.final)) {//si existe callback
                     obj.final({data: ddat, context: context});
                 }
+                $('.modal-body').tooltip({
+                    selector: "[data-toggle=tooltip]",
+                    container: "body"
+                });
             }
         });
 

@@ -54,7 +54,7 @@ class Tools_ {
         let m = {
             ok: function (obj) {
                 $.smallBox({
-                    title: (obj.title !== undefined) ? obj.title : LANG.msn_sys,
+                    title: (obj.title !== undefined) ? obj.title : SYS_LANG_MSN.msn_sys,
                     content: (obj.content !== undefined) ? obj.content : "No content",
                     color: (obj.color !== undefined) ? obj.color : "#739E73",
                     iconSmall: (obj.icon !== undefined) ? obj.icon : "fa fa-check shake animated",
@@ -66,7 +66,7 @@ class Tools_ {
             },
             error: function (obj) {
                 $.smallBox({
-                    title: (obj.title !== undefined) ? obj.title : LANG.msn_sys,
+                    title: (obj.title !== undefined) ? obj.title : SYS_LANG_MSN.msn_sys,
                     content: (obj.content !== undefined) ? obj.content : "No content",
                     color: (obj.color !== undefined) ? obj.color : "#C46A69",
                     iconSmall: (obj.icon !== undefined) ? obj.icon : "fa fa-warning shake animated",
@@ -78,7 +78,7 @@ class Tools_ {
             },
             info: function (obj) {
                 $.bigBox({
-                    title: (obj.title !== undefined) ? obj.title : LANG.msn_sys,
+                    title: (obj.title !== undefined) ? obj.title : SYS_LANG_MSN.msn_sys,
                     content: (obj.content !== undefined) ? obj.content : "No content",
                     color: (obj.color !== undefined) ? obj.color : "#3276B1",
                     timeout: (obj.timeout !== undefined) ? obj.timeout : 6000,
@@ -91,7 +91,7 @@ class Tools_ {
             },
             warning: function (obj) {
                 $.bigBox({
-                    title: (obj.title !== undefined) ? obj.title : LANG.msn_sys,
+                    title: (obj.title !== undefined) ? obj.title : SYS_LANG_MSN.msn_sys,
                     content: (obj.content !== undefined) ? obj.content : "No content",
                     color: (obj.color !== undefined) ? obj.color : "#C79121",
                     timeout: (obj.timeout !== undefined) ? obj.timeout : 6000,
@@ -104,7 +104,7 @@ class Tools_ {
             },
             msn: function (obj) {
                 $.smallBox({
-                    title: (obj.title !== undefined) ? obj.title : LANG.msn_sys,
+                    title: (obj.title !== undefined) ? obj.title : SYS_LANG_MSN.msn_sys,
                     content: (obj.content !== undefined) ? obj.content : "No content",
                     color: (obj.color !== undefined) ? obj.color : "#296191",
                     timeout: (obj.timeout !== undefined) ? obj.timeout : 6000,
@@ -116,7 +116,7 @@ class Tools_ {
             },
             smallMsn: function (obj) {
                 $.smallBox({
-                    title: (obj.title !== undefined) ? obj.title : LANG.msn_sys,
+                    title: (obj.title !== undefined) ? obj.title : SYS_LANG_MSN.msn_sys,
                     content: (obj.content !== undefined) ? obj.content : "No content",
                     color: (obj.color !== undefined) ? obj.color : "#296191",
                     iconSmall: (obj.icon !== undefined) ? obj.icon : "fa fa-thumbs-up bounce animated",
@@ -128,7 +128,7 @@ class Tools_ {
             },
             confirm: function (obj) {
                 $.SmartMessageBox({
-                    title: `<b>${LANG.msn_sys}</b>`,
+                    title: `<b>${SYS_LANG_MSN.msn_sys}</b>`,
                     content: (obj.content !== undefined) ? obj.content : "No content",
                     buttons: '[No][Si]'
                 }, function (ButtonPressed) {
@@ -149,7 +149,7 @@ class Tools_ {
             },
             alert: function (obj) {
                 $.SmartMessageBox({
-                    title: LANG.msn_sys,
+                    title: SYS_LANG_MSN.msn_sys,
                     content: (obj.content !== undefined) ? obj.content : "No content",
                     buttons: '[Aceptar]'
                 }, function (ButtonPressed) {
@@ -401,13 +401,20 @@ class Tools_ {
                 elems[x].innerHTML = eval(ev);
             }
             //los placeholders
-            var elems = document.querySelectorAll(".tr-language-ph"), ev = '';
+            elems = document.querySelectorAll(".tr-language-ph"), ev = '';
             for (var x = 0; x < elems.length; x++) {
-                ev = `language_${lang}.labels[ '${elems[x].dataset.tr}' ]`;
+                ev = `language_${lang}.labels[ '${elems[x].dataset.trph}' ]`;
                 elems[x].placeholder = eval(ev);
             }
-
-            LANG = eval(`language_${lang}.msn`); /*para los alertas*/
+            
+            //los titles
+            elems = document.querySelectorAll(".tr-language-title"), ev = '';
+            for (var x = 0; x < elems.length; x++) {
+                ev = `language_${lang}.labels[ '${elems[x].dataset.trtitle}' ]`;
+                elems[x].title = eval(ev);
+            }
+            
+            SYS_LANG_MSN = eval(`language_${lang}.msn`); /*para los alertas*/
             localStorage.setItem('sys_lang', lang);
         });
     }

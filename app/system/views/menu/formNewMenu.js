@@ -17,14 +17,14 @@
                 <div class="form-group">
                     <label class="col-lg-2 control-label tr-language" data-tr="alias"></label>
                     <div class="col-lg-5">
-                        <input type="text" class="form-control" id="txt_alias" name="txt_alias" data-toggle="tooltip" data-placement="right" title="Este alias se utilizará como prefijo para todos los elementos que serán contenidos en esta menú. Se permiten 10 caracteres como máximo."/>
+                        <input type="text" class="form-control tr-language-title" id="txt_alias" name="txt_alias" data-toggle="tooltip" data-placement="right" data-trtitle="t_alias"/>
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label class="col-lg-2 control-label tr-language" data-tr="ajax"></label>
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" id="txt_ajax" name="txt_ajax" /> 
+                        <input type="text" class="form-control tr-language-title" id="txt_ajax" name="txt_ajax" data-toggle="tooltip" data-placement="right" data-trtitle="t_ajax"/> 
                     </div>
                 </div>
 
@@ -53,6 +53,9 @@
                 txt_descripcion: {
                     required: true,
                     minlength: 3
+                },
+                txt_alias: {
+                    maxlength: 10
                 }
             },
             errorPlacement: function (error, element) {
