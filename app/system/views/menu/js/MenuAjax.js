@@ -55,5 +55,20 @@ class MenuAjax_ extends Ajax_ {
             dataType: 'json'
         });
     }
+    
+    delete(btn,tk){
+        return super.send({
+            flag: 3,
+            token: tk,
+            dataAlias: this._alias,
+            element: btn,
+            context: this,
+            root: `${this._controller}delete`,
+            dataType: 'json',
+            serverParams: function (sData, obj) {
+                sData.push({name: '_pkMenu', value: $(btn).parent().parent('ul').data('keymnu')});
+            }
+        });
+    }
 
 }

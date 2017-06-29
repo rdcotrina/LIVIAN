@@ -79,7 +79,7 @@ class MenuDom_ extends MenuAjax_ {
         super.postNewMenu(tk).done(function (obj) {
             if (obj.result == 1) {
                 Tools.notify().ok({
-                    content: SYS_LANG_MSN.proccess_ok
+                    content: SYS_LANG_MSN.save_ok
                 });
                 this.renderData();
                 Tools.closeModal(`#${this._alias}formNewMenu`);
@@ -87,14 +87,25 @@ class MenuDom_ extends MenuAjax_ {
                 Tools.notify().error({
                     content: SYS_LANG_MSN.mnu.nmenu_exist
                 });
-            }else if (obj.result == 3) {
+            } else if (obj.result == 3) {
                 Tools.notify().error({
                     content: SYS_LANG_MSN.mnu.alias_exist
                 });
-            }else if (obj.result == 4) {
+            } else if (obj.result == 4) {
                 Tools.notify().error({
                     content: SYS_LANG_MSN.mnu.ajax_exist
                 });
+            }
+        });
+    }
+
+    delete(btn, tk) {
+        let d = super.delete;
+        Tools.notify().confirm({
+            context: this,
+            content: SYS_LANG_MSN.you_sure_delete,
+            yes: function (context) {
+                d(btn, tk)
             }
         });
     }

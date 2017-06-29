@@ -59,7 +59,7 @@
                                 </div>
                             </div>`;
                             $(that).append(cnt);
-
+                            $(`#btns_${i}`).data('keymnu',v.id_menu);
                             $(`#mnu_${i}`).jstree({
                                 core: {
                                     data: eval(`[${_private.childrens(oSettings, v.id_menu)}]`)
@@ -73,7 +73,7 @@
                                 btns: [
                                     {keybtn: BTNSYS.EDT, evts: [{click: 'Exe.MenuDom.formNewMenu'}]},
                                     {keybtn: BTNSYS.NEW, evts: [{click: 'Exe.MenuDom.formNewMenu'}]},
-//                                    {keybtn: BTNSYS.DEL, evts: [{click: 'alert(12)'}]}
+                                    {keybtn: BTNSYS.DEL, evts: [{click: 'Exe.MenuDom.delete'}]}
                                 ]
                             });
                         }

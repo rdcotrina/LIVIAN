@@ -136,13 +136,13 @@ class Tools_ {
                         console.log('[context] no definido, puede causar errores para ejecucion de callback');
                     }
                     if (ButtonPressed === "Si") {
-                        if (obj.callbackSI !== undefined) {
-                            obj.callbackSI(obj.context); /*context es para enviar el scope de la clase en donde se ejecuta Tools*/
+                        if (obj.yes !== undefined) {
+                            obj.yes(obj.context); /*context es para enviar el scope de la clase en donde se ejecuta Tools*/
                         }
                     }
                     if (ButtonPressed === "No") {
-                        if (obj.callbackNO !== undefined) {
-                            obj.callbackNO(obj.context);
+                        if (obj.not !== undefined) {
+                            obj.not(obj.context);
                         }
                     }
                 });

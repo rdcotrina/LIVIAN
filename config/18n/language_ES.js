@@ -24,7 +24,10 @@ var language_ES = {
         msn_sys: 'Aviso del sistema:',
         msn_logout: '¿ Desea salir: ',
         msn_seguridad_logout: 'Para mayor segurdad cierre el navegador.',
-        proccess_ok: 'Datos se grabaron correctamente.',
+        save_ok: 'Datos se grabaron correctamente.',
+        edit_ok: 'Datos se editaron correctamente.',
+        delete_ok: 'Registro(s) se eliminó correctamente.',
+        you_sure_delete: '¿Etá seguro de eliminar el registro?',
         mnu: {
             nmenu_exist: 'Descripción de menú ya existe.',
             alias_exist: 'Alias ya existe.',

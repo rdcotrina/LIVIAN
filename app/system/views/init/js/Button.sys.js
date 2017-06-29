@@ -80,27 +80,27 @@
 
                         /*recorrido de todos botones generados*/
                         $.each(data, function (ii, vv) {
+                            let kbtn = null;
                             if (oSettings.keymnu == vv.keymnu && v.keybtn == vv.keybtn) {
                                 $(oSettings.container).append(vv.btn);
                                 
-                                idbtn = `${idbtn}${oSettings.keymnu}${vv.keybtn}`;
+                                kbtn = `${idbtn}${oSettings.keymnu}${vv.keybtn}`;
                                 
                                 /*agregar type de boton*/
                                 if(oSettings.type == 'button'){
-                                    $(`#${idbtn}`).attr('type',typebtn);
+                                    $(`#${kbtn}`).attr('type',typebtn);
                                 }
                                 /*cambiando id de li*/
                                 if(oSettings.type == 'li'){
-                                    $(`#${idbtn}`).attr('id',idbtn+oSettings.aliasBtn);
-                                    idbtn = idbtn+oSettings.aliasBtn;
-                                    
+                                    $(`#${kbtn}`).attr('id',kbtn+oSettings.aliasBtn);
+                                    kbtn = kbtn+oSettings.aliasBtn;
                                 }
 
                                 /*recorrido de eventos*/
                                 $.each(v.evts, function (a, b) {
                                     $.each(b, function (x, y) {
-                                        alert(`
-                                            $('#${idbtn}').${x}(function(){
+                                        eval(`
+                                            $('#${kbtn}').${x}(function(){
                                                 ${y}(this,'${_sys_sg}');
                                             });
                                         `);
